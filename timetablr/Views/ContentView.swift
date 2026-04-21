@@ -4,6 +4,7 @@
 //
 //  Created on 22/04/2026.
 //
+//  Main Timetable view
 
 import SwiftUI
 
