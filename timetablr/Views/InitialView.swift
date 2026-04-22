@@ -4,13 +4,30 @@
 //
 //  Created on 22/04/2026.
 //
-//  First load welcome
+//  First load welcome (pre setup)
 
 import SwiftUI
 
 struct InitialView: View {
+    @State private var transition = false
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        VStack {
+            Text("Timetablr")
+                .font(.custom("Rubik", size: 30))
+                .fontWeight(.bold)
+            
+            Button(action: {
+                transition = true
+            }) {
+                Text("Begin Setup")
+                    .font(.custom("Inter", size: 20))
+            }
+            .padding()
+            .fullScreenCover(isPresented: $transition) {
+                SetupView()
+            }
+        }
     }
 }
 
