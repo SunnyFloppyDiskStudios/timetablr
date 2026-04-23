@@ -40,6 +40,7 @@ struct ClassSetupView: View {
                     Text("Next")
                     Image(systemName: "chevron.right")
                 }
+                .padding()
             }
         }
     }

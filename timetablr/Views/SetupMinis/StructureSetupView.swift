@@ -9,6 +9,10 @@
 import SwiftUI
 
 struct StructureSetupView: View {
+    @State var period = 1
+    @State var sdate = Date()
+    @State var edate = Date()
+    
     var body: some View {
         NavigationStack {
             VStack {
@@ -27,10 +31,42 @@ struct StructureSetupView: View {
                 // interactive space
                 VStack {
                     Spacer()
-                    
-                    Text("Structure Setup")
+                    // structure
+                    List {
+                        HStack {
+                            Text("CLASS \($period.wrappedValue)")
+                            Spacer()
+                            DatePicker(selection: $sdate, displayedComponents: [.hourAndMinute]) {}
+                            Text("-")
+                            DatePicker(selection: $edate, displayedComponents: [.hourAndMinute]) {}
+                        }
+                    }
                     
                     Spacer()
+                    
+                    HStack {
+                        Spacer()
+                        
+                        Button(action: {
+                            // add class
+                        }, label: {
+                            Text("Add class")
+                        })
+                        .padding()
+                        .tint(.green)
+                        
+                        Spacer()
+                        
+                        Button(action: {
+                            // add class
+                        }, label: {
+                            Text("Add break")
+                        })
+                        .padding()
+                        
+                        Spacer()
+                    }
+                    .padding()
                 }
                 
                 // next button
@@ -40,6 +76,7 @@ struct StructureSetupView: View {
                     Text("Next")
                     Image(systemName: "chevron.right")
                 }
+                .padding()
             }
         }
     }
@@ -48,3 +85,12 @@ struct StructureSetupView: View {
 #Preview {
     StructureSetupView()
 }
+
+
+//HStack {
+//    Text("CLASS \($period.wrappedValue)")
+//    Spacer()
+//    DatePicker(selection: $date, displayedComponents: [.hourAndMinute]) {}
+//    Text("-")
+//    DatePicker(selection: $date, displayedComponents: [.hourAndMinute]) {}
+//}
