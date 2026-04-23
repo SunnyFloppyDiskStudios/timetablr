@@ -33,12 +33,20 @@ struct StructureSetupView: View {
                     Spacer()
                     // structure
                     List {
-                        HStack {
-                            Text("CLASS \($period.wrappedValue)")
-                            Spacer()
-                            DatePicker(selection: $sdate, displayedComponents: [.hourAndMinute]) {}
-                            Text("-")
-                            DatePicker(selection: $edate, displayedComponents: [.hourAndMinute]) {}
+                        ForEach(0 ..< userBaseStructure.count, id: \.self) { i in
+                            HStack {
+                                Text(
+                                    Int(userBaseStructure[i].first.unsafelyUnwrapped) ?? 0 > 0 ?
+                                        "CLASS \(userBaseStructure[i].first.unsafelyUnwrapped)"
+                                    :
+                                        "BREAK"
+                                
+                                )
+                                Spacer()
+                                DatePicker(selection: $edate, displayedComponents: [.hourAndMinute]) {}
+                                Text("-")
+                                DatePicker(selection: $sdate, displayedComponents: [.hourAndMinute]) {}
+                            }
                         }
                     }
                     
@@ -90,7 +98,7 @@ struct StructureSetupView: View {
 //HStack {
 //    Text("CLASS \($period.wrappedValue)")
 //    Spacer()
-//    DatePicker(selection: $date, displayedComponents: [.hourAndMinute]) {}
+//    DatePicker(selection: $edate, displayedComponents: [.hourAndMinute]) {}
 //    Text("-")
-//    DatePicker(selection: $date, displayedComponents: [.hourAndMinute]) {}
+//    DatePicker(selection: $sdate, displayedComponents: [.hourAndMinute]) {}
 //}

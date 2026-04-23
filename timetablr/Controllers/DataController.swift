@@ -16,17 +16,28 @@ import Foundation
 public var userSubjects = [String]()
 
 // the subjects that a user has on a day
-// day : ["class1", "class2", "etc."]
-public var userSetSubjects = [Int : [String]]()
+// ["class1", "class2", "etc."]
+public var userSetSubjects = [[String]]()
 
 // structures
 
 // default structure that days will follow
-// period : ["class or break", "start time", "end time"]
-public var userBaseStructure = [Int : [String]]()
+// ["period", "class or break", "start time", "end time"]
+//public var userBaseStructure = [[String]]()
+
+public var userBaseStructure : [[String]] = [
+    ["1", "class", "", ""],
+    ["2", "class", "", ""],
+    ["0", "break", "", ""],
+    ["3", "class", "", ""],
+    ["4", "class", "", ""],
+    ["0", "break", "", ""],
+    ["5", "class", "", ""],
+]
+
 
 // all the classes that have overrides
-// day : [period : ["class or break", "start time", "end time"]]
-public var userOverrideStructures = [Int:[Int:[String]]]()
+// day : ["period", "class or break", "start time", "end time"]]
+public var userOverrideStructures = [Int : [String]]()
 
 
