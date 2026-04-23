@@ -36,7 +36,8 @@ struct StructureSetupView: View {
                         ForEach(0 ..< userBaseStructure.count, id: \.self) { i in
                             HStack {
                                 Text(
-                                    Int(userBaseStructure[i].first.unsafelyUnwrapped) ?? 0 > 0 ?
+                                    Int(userBaseStructure[i].first.unsafelyUnwrapped) ?? 0 > 0
+                                    ?
                                         "CLASS \(userBaseStructure[i].first.unsafelyUnwrapped)"
                                     :
                                         "BREAK"
