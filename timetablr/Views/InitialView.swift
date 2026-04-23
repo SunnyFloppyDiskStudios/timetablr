@@ -25,7 +25,7 @@ struct InitialView: View {
             }
             .padding()
             .fullScreenCover(isPresented: $transition) {
-                SetupView()
+                StructureSetupView() // stage 1
             }
         }
     }
