@@ -37,7 +37,7 @@ public var userBaseStructure : [[String]] = [
 
 
 // all the classes that have overrides
-// day : ["period", "class or break", "start time", "end time"]]
-public var userOverrideStructures = [Int : [String]]()
+// ["day", "period", "class or break", "start time", "end time"]]
+public var userOverrideStructures = [[String]]()
 
 
