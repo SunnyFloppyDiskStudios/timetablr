@@ -31,14 +31,14 @@ struct StructureSetupView: View {
                     Text("Structure Setup")
                     
                     Spacer()
-                    
-                    NavigationLink {
-                        
-                        ClassSetupView()
-                    } label: {
-                        Text("Next")
-                        Image(systemName: "chevron.right")
-                    }
+                }
+                
+                // next button
+                NavigationLink {
+                    ClassSetupView()
+                } label: {
+                    Text("Next")
+                    Image(systemName: "chevron.right")
                 }
             }
         }
