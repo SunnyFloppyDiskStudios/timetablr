@@ -15,30 +15,53 @@ import Foundation
 // subjects that user has
 public var userSubjects = [String]()
 
-// the subjects that a user has on a day
-// ["class1", "class2", "etc."]
-public var userSetSubjects = [[String]]()
+// the subjects that a user has on a day (an array of DayClass objects would order the classes of each day)
+public struct DayClass {
+    var day: Int
+    var classes: [String] // names
+}
+
+public var userSetSubjects = [DayClass]()
 
 // structures
 
 // default structure that days will follow
-// ["period", "class or break", "start time", "end time"]
+public struct Subject {
+    var period: Int // 0 = break, n = period (1,2,0,3,4,0,5)
+    var type: String // class or break
+    var startTime: Date
+    var endTime: Date
+}
 
-//public var userBaseStructure = [[Any]]()
+//public var userBaseDayStructure = [[Subject]]()
 
-public var userBaseStructure : [[String]] = [
-    ["1", "class", "2000-01-01 08:45:00 +0000", "2000-01-01 09:45:00 +0000"],
-    ["2", "class", "2000-01-01 09:45:00 +0000", "2000-01-01 10:45:00 +0000"],
-    ["0", "break", "2000-01-01 10:45:00 +0000", "2000-01-01 11:15:00 +0000"],
-    ["3", "class", "2000-01-01 11:15:00 +0000", "2000-01-01 12:15:00 +0000"],
-    ["4", "class", "2000-01-01 12:15:00 +0000", "2000-01-01 13:15:00 +0000"],
-    ["0", "break", "2000-01-01 13:15:00 +0000", "2000-01-01 14:00:00 +0000"],
-    ["5", "class", "2000-01-01 14:30:00 +0000", "2000-01-01 15:30:00 +0000"],
+public var userBaseDayStructure : [Subject] = [ // TESTING VARIABLE
+    Subject(period: 1, type: "class", startTime: Date(), endTime: Date()),
+    Subject(period: 2, type: "class", startTime: Date(), endTime: Date()),
+    Subject(period: 0, type: "break", startTime: Date(), endTime: Date()),
+    Subject(period: 3, type: "class", startTime: Date(), endTime: Date()),
+    Subject(period: 4, type: "class", startTime: Date(), endTime: Date()),
+    Subject(period: 0, type: "break", startTime: Date(), endTime: Date()),
+    Subject(period: 5, type: "class", startTime: Date(), endTime: Date()),
+    
+//    ["1", "class", "2000-01-01 08:45:00 +0000", "2000-01-01 09:45:00 +0000"],
+//    ["2", "class", "2000-01-01 09:45:00 +0000", "2000-01-01 10:45:00 +0000"],
+//    ["0", "break", "2000-01-01 10:45:00 +0000", "2000-01-01 11:15:00 +0000"],
+//    ["3", "class", "2000-01-01 11:15:00 +0000", "2000-01-01 12:15:00 +0000"],
+//    ["4", "class", "2000-01-01 12:15:00 +0000", "2000-01-01 13:15:00 +0000"],
+//    ["0", "break", "2000-01-01 13:15:00 +0000", "2000-01-01 14:00:00 +0000"],
+//    ["5", "class", "2000-01-01 14:30:00 +0000", "2000-01-01 15:30:00 +0000"],
 ]
 
 
 // all the classes that have overrides
 // ["day", "period", "class or break", "start time", "end time"]
-public var userOverrideStructures = [[String]]()
+
+public struct OverDayStructure {
+    var day: Int
+    var classes: [Subject]
+}
+
+public var userOverrideStructures = [OverDayStructure]()
 
 
