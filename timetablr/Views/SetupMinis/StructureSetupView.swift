@@ -28,7 +28,7 @@ struct StructureSetupView: View {
                 
                 Spacer()
                 
-                // interactive space
+                //MARK: - interactive space
                 VStack {
                     Spacer()
                     // structure
@@ -77,7 +77,7 @@ struct StructureSetupView: View {
                     .padding()
                 }
                 
-                // next button
+                //MARK: - bottom bar
                 NavigationLink {
                     ClassSetupView()
                 } label: {

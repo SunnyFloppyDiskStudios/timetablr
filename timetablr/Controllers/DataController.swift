@@ -10,7 +10,7 @@
 
 import Foundation
 
-// subjects
+//MARK: - subjects
 
 // subjects that user has
 public var userSubjects = [String]()
@@ -23,7 +23,7 @@ public struct DayClass {
 
 public var userSetSubjects = [DayClass]()
 
-// structures
+//MARK: - structures
 
 // default structure that days will follow
 public struct Subject {
