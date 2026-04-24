@@ -33,20 +33,19 @@ struct StructureSetupView: View {
                     Spacer()
                     // structure
                     List {
-                        ForEach(0 ..< userBaseDayStructure.count, id: \.self) { i in
+                        ForEach(userBaseDayStructure.indices, id: \.self) { i in
                             HStack {
                                 Text(
-                                    Int(userBaseDayStructure[i].first.unsafelyUnwrapped) ?? 0 > 0
+                                    userBaseDayStructure[i].period > 0
                                     ?
-                                        "CLASS \(userBaseDayStructure[i].first.unsafelyUnwrapped)"
+                                        "CLASS \(userBaseDayStructure[i].period)"
                                     :
                                         "BREAK"
-                                
                                 )
                                 Spacer()
-                                DatePicker(selection: $edate, displayedComponents: [.hourAndMinute]) {}
-                                Text("-")
                                 DatePicker(selection: $sdate, displayedComponents: [.hourAndMinute]) {}
+                                Text("-")
+                                DatePicker(selection: $edate, displayedComponents: [.hourAndMinute]) {}
                             }
                         }
                     }

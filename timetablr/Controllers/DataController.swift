@@ -36,21 +36,13 @@ public struct Subject {
 //public var userBaseDayStructure = [[Subject]]()
 
 public var userBaseDayStructure : [Subject] = [ // TESTING VARIABLE
-    Subject(period: 1, type: "class", startTime: Date(), endTime: Date()),
-    Subject(period: 2, type: "class", startTime: Date(), endTime: Date()),
-    Subject(period: 0, type: "break", startTime: Date(), endTime: Date()),
-    Subject(period: 3, type: "class", startTime: Date(), endTime: Date()),
-    Subject(period: 4, type: "class", startTime: Date(), endTime: Date()),
-    Subject(period: 0, type: "break", startTime: Date(), endTime: Date()),
-    Subject(period: 5, type: "class", startTime: Date(), endTime: Date()),
-    
-//    ["1", "class", "2000-01-01 08:45:00 +0000", "2000-01-01 09:45:00 +0000"],
-//    ["2", "class", "2000-01-01 09:45:00 +0000", "2000-01-01 10:45:00 +0000"],
-//    ["0", "break", "2000-01-01 10:45:00 +0000", "2000-01-01 11:15:00 +0000"],
-//    ["3", "class", "2000-01-01 11:15:00 +0000", "2000-01-01 12:15:00 +0000"],
-//    ["4", "class", "2000-01-01 12:15:00 +0000", "2000-01-01 13:15:00 +0000"],
-//    ["0", "break", "2000-01-01 13:15:00 +0000", "2000-01-01 14:00:00 +0000"],
-//    ["5", "class", "2000-01-01 14:30:00 +0000", "2000-01-01 15:30:00 +0000"],
+    Subject(period: 1, type: "class", startTime: getDate("2000-01-01 08:45:00 +0000")!, endTime: getDate("2000-01-01 09:45:00 +0000")!),
+    Subject(period: 2, type: "class", startTime: getDate("2000-01-01 09:45:00 +0000")!, endTime: getDate("2000-01-01 10:45:00 +0000")!),
+    Subject(period: 0, type: "break", startTime: getDate("2000-01-01 10:45:00 +0000")!, endTime: getDate("2000-01-01 11:15:00 +0000")!),
+    Subject(period: 3, type: "class", startTime: getDate("2000-01-01 11:15:00 +0000")!, endTime: getDate("2000-01-01 12:15:00 +0000")!),
+    Subject(period: 4, type: "class", startTime: getDate("2000-01-01 12:15:00 +0000")!, endTime: getDate("2000-01-01 13:15:00 +0000")!),
+    Subject(period: 0, type: "break", startTime: getDate("2000-01-01 13:15:00 +0000")!, endTime: getDate("2000-01-01 14:00:00 +0000")!),
+    Subject(period: 5, type: "class", startTime: getDate("2000-01-01 14:30:00 +0000")!, endTime: getDate("2000-01-01 15:30:00 +0000")!),
 ]
 
 
