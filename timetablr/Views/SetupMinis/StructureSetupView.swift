@@ -13,6 +13,8 @@ struct StructureSetupView: View {
     @State var sdate = Date()
     @State var edate = Date()
     
+    @StateObject var data = DataController()
+    
     var body: some View {
         NavigationStack {
             VStack {
@@ -33,19 +35,19 @@ struct StructureSetupView: View {
                     Spacer()
                     // structure
                     List {
-                        ForEach(userBaseDayStructure.indices, id: \.self) { i in
+                        ForEach(data.userBaseDayStructure.indices, id: \.self) { i in
                             HStack {
                                 Text(
-                                    userBaseDayStructure[i].period > 0
+                                    data.userBaseDayStructure[i].period > 0
                                     ?
-                                        "CLASS \(userBaseDayStructure[i].period)"
+                                    "CLASS \(data.userBaseDayStructure[i].period)"
                                     :
                                         "BREAK"
                                 )
                                 Spacer()
-                                DatePicker(selection: $sdate, displayedComponents: [.hourAndMinute]) {}
+                                DatePicker(selection: $data.userBaseDayStructure[i].startTime, displayedComponents: [.hourAndMinute]) {}
                                 Text("-")
-                                DatePicker(selection: $edate, displayedComponents: [.hourAndMinute]) {}
+                                DatePicker(selection: $data.userBaseDayStructure[i].endTime, displayedComponents: [.hourAndMinute]) {}
                             }
                         }
                     }

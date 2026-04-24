@@ -12,7 +12,7 @@ import Foundation
 public func getDate(_ dateString: String) -> Date? {
     let dateFormatter = DateFormatter()
     dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss Z"
-    dateFormatter.timeZone = TimeZone(secondsFromGMT: 0)
+    dateFormatter.timeZone = .current
     dateFormatter.locale = Locale(identifier: "en_US_POSIX")
     return dateFormatter.date(from: dateString)
 }

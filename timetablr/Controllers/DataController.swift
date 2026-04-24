@@ -10,8 +10,9 @@
 
 import Foundation
 import SwiftUI
+import Combine
 
-struct DataController {
+class DataController: ObservableObject {
     //MARK: - subjects
     
     // subjects that user has
@@ -35,9 +36,14 @@ struct DataController {
         var endTime: Date
     }
     
-    //public var userBaseDayStructure = [[Subject]]()
+    public struct Time {
+        var hours: Int
+        var minutes: Int
+    }
     
-    public var userBaseDayStructure : [Subject] = [ // TESTING VARIABLE
+    //@Published public var userBaseDayStructure = [Subject]()
+    
+    @Published public var userBaseDayStructure : [Subject] = [ // TESTING VARIABLE
         Subject(period: 1, type: "class", startTime: getDate("2000-01-01 08:45:00 +0000")!, endTime: getDate("2000-01-01 09:45:00 +0000")!),
         Subject(period: 2, type: "class", startTime: getDate("2000-01-01 09:45:00 +0000")!, endTime: getDate("2000-01-01 10:45:00 +0000")!),
         Subject(period: 0, type: "break", startTime: getDate("2000-01-01 10:45:00 +0000")!, endTime: getDate("2000-01-01 11:15:00 +0000")!),
