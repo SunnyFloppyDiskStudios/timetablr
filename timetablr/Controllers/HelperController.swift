@@ -9,10 +9,11 @@
 import Foundation
 
 // Convert string Date to Date() type
-public func getDate(_ dateString: String) -> Date? {
+public func getDate(_ dateString: String) -> Date {
     let dateFormatter = DateFormatter()
-    dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss Z"
-    dateFormatter.timeZone = .current
-    dateFormatter.locale = Locale(identifier: "en_US_POSIX")
-    return dateFormatter.date(from: dateString)
+    dateFormatter.dateFormat = "HH:mm"
+    
+    print(dateFormatter.date(from: String(format: "%02d%02d", dateString))!)
+    
+    return dateFormatter.date(from: String(format: "%02d%02d", dateString)) ?? Date()
 }
