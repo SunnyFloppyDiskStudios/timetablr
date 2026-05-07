@@ -13,7 +13,7 @@ public func getDate(_ dateString: String) -> Date {
     let dateFormatter = DateFormatter()
     dateFormatter.dateFormat = "HH:mm"
     
-    print(dateFormatter.date(from: String(format: "%02d%02d", dateString))!)
+    print(dateFormatter.date(from: dateString) ?? Date())
     
-    return dateFormatter.date(from: String(format: "%02d%02d", dateString)) ?? Date()
+    return dateFormatter.date(from: dateString) ?? Date()
 }
