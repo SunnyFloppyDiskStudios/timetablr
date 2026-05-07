@@ -8,8 +8,8 @@
 
 import Foundation
 
-// Convert string Date to Date() type
-public func getDate(_ dateString: String) -> Date {
+// Convert string Date to Date() type (mainly for debugging)
+public func dateFromString(_ dateString: String) -> Date {
     let dateFormatter = DateFormatter()
     dateFormatter.dateFormat = "HH:mm"
     
