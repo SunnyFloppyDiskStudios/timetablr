@@ -9,7 +9,7 @@
 import SwiftUI
 
 struct StructureSetupView: View {
-    @State var period = 1
+    @State var period = 0
     @State var sdate = Date()
     @State var edate = Date()
     
@@ -37,13 +37,7 @@ struct StructureSetupView: View {
                     List {
                         ForEach(data.userBaseDayStructure.indices, id: \.self) { i in
                             HStack {
-                                Text(
-                                    data.userBaseDayStructure[i].period > 0
-                                    ?
-                                    "CLASS \(data.userBaseDayStructure[i].period)"
-                                    :
-                                        "BREAK"
-                                )
+                                Text(data.userBaseDayStructure[i].period ? "CLASS":"BREAK")
                                 Spacer()
                                 DatePicker(selection: $data.userBaseDayStructure[i].startTime, displayedComponents: [.hourAndMinute]) {}
                                 Text("-")
@@ -59,6 +53,10 @@ struct StructureSetupView: View {
                         
                         Button(action: {
                             // add class
+                            period += 1
+                            
+                            data.userBaseDayStructure.append(Subject.init(period: true, startTime: Date(), endTime: Date()))
+                            
                         }, label: {
                             Text("Add class")
                         })
@@ -68,7 +66,9 @@ struct StructureSetupView: View {
                         Spacer()
                         
                         Button(action: {
-                            // add class
+                            // add break
+                            data.userBaseDayStructure.append(Subject.init(period: false, startTime: Date(), endTime: Date()))
+                            
                         }, label: {
                             Text("Add break")
                         })

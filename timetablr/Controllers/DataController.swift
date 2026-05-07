@@ -19,8 +19,7 @@ public struct Time {
 
 // default structure that days will follow
 public struct Subject {
-    var period: Int // 0 = break, n = period (1,2,0,3,4,0,5)
-    var type: String // class or break
+    var period: Bool // false = break, true = period
     var startTime: Date
     var endTime: Date
 }
@@ -42,17 +41,17 @@ class DataController: ObservableObject {
     
     //MARK: - structures
     
-    //@Published public var userBaseDayStructure = [Subject]()
+    @Published public var userBaseDayStructure = [Subject]()
     
-    @Published public var userBaseDayStructure : [Subject] = [ // TESTING VARIABLE
-        Subject(period: 1, type: "class", startTime: dateFromString("08:45"), endTime: dateFromString("09:45")),
-        Subject(period: 2, type: "class", startTime: dateFromString("09:45"), endTime: dateFromString("10:45")),
-        Subject(period: 0, type: "break", startTime: dateFromString("10:45"), endTime: dateFromString("11:15")),
-        Subject(period: 3, type: "class", startTime: dateFromString("11:15"), endTime: dateFromString("12:15")),
-        Subject(period: 4, type: "class", startTime: dateFromString("12:15"), endTime: dateFromString("13:15")),
-        Subject(period: 0, type: "break", startTime: dateFromString("13:15"), endTime: dateFromString("14:00")),
-        Subject(period: 5, type: "class", startTime: dateFromString("14:30"), endTime: dateFromString("15:30")),
-    ]
+//    @Published public var userBaseDayStructure : [Subject] = [ // TESTING VARIABLE
+//        Subject(period: true, startTime: dateFromString("08:45"), endTime: dateFromString("09:45")),
+//        Subject(period: true, startTime: dateFromString("09:45"), endTime: dateFromString("10:45")),
+//        Subject(period: false, startTime: dateFromString("10:45"), endTime: dateFromString("11:15")),
+//        Subject(period: true, startTime: dateFromString("11:15"), endTime: dateFromString("12:15")),
+//        Subject(period: true, startTime: dateFromString("12:15"), endTime: dateFromString("13:15")),
+//        Subject(period: false, startTime: dateFromString("13:15"), endTime: dateFromString("14:00")),
+//        Subject(period: true, startTime: dateFromString("14:30"), endTime: dateFromString("15:30")),
+//    ]
     
     
     // all the classes that have overrides
