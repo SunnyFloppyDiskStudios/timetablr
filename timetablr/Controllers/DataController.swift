@@ -19,7 +19,7 @@ public struct Time {
 
 // default structure that days will follow
 public struct Subject {
-    var period: Bool // false = break, true = period
+    var isPeriod: Bool // false = break, true = period
     var startTime: Date
     var endTime: Date
 }
@@ -44,13 +44,13 @@ class DataController: ObservableObject {
     @Published public var userBaseDayStructure = [Subject]()
     
 //    @Published public var userBaseDayStructure : [Subject] = [ // TESTING VARIABLE
-//        Subject(period: true, startTime: dateFromString("08:45"), endTime: dateFromString("09:45")),
-//        Subject(period: true, startTime: dateFromString("09:45"), endTime: dateFromString("10:45")),
-//        Subject(period: false, startTime: dateFromString("10:45"), endTime: dateFromString("11:15")),
-//        Subject(period: true, startTime: dateFromString("11:15"), endTime: dateFromString("12:15")),
-//        Subject(period: true, startTime: dateFromString("12:15"), endTime: dateFromString("13:15")),
-//        Subject(period: false, startTime: dateFromString("13:15"), endTime: dateFromString("14:00")),
-//        Subject(period: true, startTime: dateFromString("14:30"), endTime: dateFromString("15:30")),
+//        Subject(isPeriod: true, startTime: dateFromString("08:45"), endTime: dateFromString("09:45")),
+//        Subject(isPeriod: true, startTime: dateFromString("09:45"), endTime: dateFromString("10:45")),
+//        Subject(isPeriod: false, startTime: dateFromString("10:45"), endTime: dateFromString("11:15")),
+//        Subject(isPeriod: true, startTime: dateFromString("11:15"), endTime: dateFromString("12:15")),
+//        Subject(isPeriod: true, startTime: dateFromString("12:15"), endTime: dateFromString("13:15")),
+//        Subject(isPeriod: false, startTime: dateFromString("13:15"), endTime: dateFromString("14:00")),
+//        Subject(isPeriod: true, startTime: dateFromString("14:30"), endTime: dateFromString("15:30")),
 //    ]
     
     

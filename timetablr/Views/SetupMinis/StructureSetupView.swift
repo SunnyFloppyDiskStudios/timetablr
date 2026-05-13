@@ -37,13 +37,14 @@ struct StructureSetupView: View {
                     List {
                         ForEach(data.userBaseDayStructure.indices, id: \.self) { i in
                             HStack {
-                                Text(data.userBaseDayStructure[i].period ? "CLASS":"BREAK")
+                                Text(data.userBaseDayStructure[i].isPeriod ? "CLASS":"BREAK")
                                 Spacer()
                                 DatePicker(selection: $data.userBaseDayStructure[i].startTime, displayedComponents: [.hourAndMinute]) {}
                                 Text("-")
                                 DatePicker(selection: $data.userBaseDayStructure[i].endTime, displayedComponents: [.hourAndMinute]) {}
                             }
                         }
+                        .onDelete(perform: deleteItem);
                     }
                     
                     Spacer()
@@ -55,7 +56,7 @@ struct StructureSetupView: View {
                             // add class
                             period += 1
                             
-                            data.userBaseDayStructure.append(Subject.init(period: true, startTime: Date(), endTime: Date()))
+                            data.userBaseDayStructure.append(Subject.init(isPeriod: true, startTime: Date(), endTime: Date()))
                             
                         }, label: {
                             Text("Add class")
@@ -67,7 +68,7 @@ struct StructureSetupView: View {
                         
                         Button(action: {
                             // add break
-                            data.userBaseDayStructure.append(Subject.init(period: false, startTime: Date(), endTime: Date()))
+                            data.userBaseDayStructure.append(Subject.init(isPeriod: false, startTime: Date(), endTime: Date()))
                             
                         }, label: {
                             Text("Add break")
@@ -90,17 +91,14 @@ struct StructureSetupView: View {
             }
         }
     }
+    
+    //MARK: - functions
+    
+    func deleteItem(_ pos: IndexSet) {
+        data.userBaseDayStructure.remove(atOffsets: pos)
+    }
 }
 
 #Preview {
     StructureSetupView()
 }
-
-
-//HStack {
-//    Text("CLASS \($period.wrappedValue)")
-//    Spacer()
-//    DatePicker(selection: $edate, displayedComponents: [.hourAndMinute]) {}
-//    Text("-")
-//    DatePicker(selection: $sdate, displayedComponents: [.hourAndMinute]) {}
-//}
