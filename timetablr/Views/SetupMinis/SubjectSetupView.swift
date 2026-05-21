@@ -8,7 +8,10 @@
 
 import SwiftUI
 
-struct ClassSetupView: View {    
+struct ClassSetupView: View {
+    @State private var className: String = ""
+    @FocusState private var classFieldIsFocused: Bool
+    
     var body: some View {
         NavigationStack {
             VStack {
@@ -28,10 +31,52 @@ struct ClassSetupView: View {
                 VStack {
                     Spacer()
                     
-                    Text("Structure Setup")
+                    // !
                     
                     Spacer()
+                    
+                    HStack {
+                        HStack {
+                            TextField("Class Name", text: $className)
+                                .focused($classFieldIsFocused)
+                                .onSubmit {
+                                    
+                                }
+                                .textInputAutocapitalization(.never)
+                                .disableAutocorrection(true)
+                                .padding()
+                                .font(.title)
+                        }
+                        
+                        HStack {
+                            Button {
+                                // colour
+                                
+                            } label: {
+                                RoundedRectangle(cornerSize: CGSize.init(width: 30, height: 30))
+                                    .frame(width: 40, height: 40)
+                                    .overlay(
+                                        RoundedRectangle(cornerRadius: 30)
+                                            .stroke(Color.black, lineWidth: 5)
+                                    )
+                            }
+                            .padding(.horizontal)
+                            
+                            Button {
+                                // add
+                                
+                            } label: {
+                                Image(systemName: "plus")
+                                    .fontWeight(.black)
+                                    .frame(width: 40, height: 40)
+                                    .font(.title)
+                            }
+                            .padding(.horizontal)
+                        }
+                        .padding(.horizontal)
+                    }
                 }
+                
                 
                 // next button
                 NavigationLink {
