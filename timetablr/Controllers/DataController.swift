@@ -43,17 +43,6 @@ class DataController: ObservableObject {
     
     @Published public var userBaseDayStructure = [Subject]()
     
-//    @Published public var userBaseDayStructure : [Subject] = [ // TESTING VARIABLE
-//        Subject(isPeriod: true, startTime: dateFromString("08:45"), endTime: dateFromString("09:45")),
-//        Subject(isPeriod: true, startTime: dateFromString("09:45"), endTime: dateFromString("10:45")),
-//        Subject(isPeriod: false, startTime: dateFromString("10:45"), endTime: dateFromString("11:15")),
-//        Subject(isPeriod: true, startTime: dateFromString("11:15"), endTime: dateFromString("12:15")),
-//        Subject(isPeriod: true, startTime: dateFromString("12:15"), endTime: dateFromString("13:15")),
-//        Subject(isPeriod: false, startTime: dateFromString("13:15"), endTime: dateFromString("14:00")),
-//        Subject(isPeriod: true, startTime: dateFromString("14:30"), endTime: dateFromString("15:30")),
-//    ]
-    
-    
     // all the classes that have overrides
     // ["day", "period", "class or break", "start time", "end time"]
     
