@@ -21,7 +21,7 @@ struct ColourPopover: View {
                         .fontWeight(.black)
                         .font(.title)
                 }
-                .padding()
+                .buttonStyle(.glassProminent)
                 
                 Spacer()
             }

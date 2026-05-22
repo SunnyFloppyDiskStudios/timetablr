@@ -59,22 +59,24 @@ struct ClassSetupView: View {
                                 RoundedRectangle(cornerSize: CGSize.init(width: 30, height: 30))
                                     .frame(width: 30, height: 30)
                             }
-                            .padding(.horizontal)
                             .popover(isPresented: $doPresentColours) { ColourPopover() }
                             
                             Button {
                                 // add
                                 
                             } label: {
-                                Image(systemName: "plus.circle.fill")
+                                Image(systemName: "plus")
                                     .fontWeight(.black)
                                     .frame(width: 40, height: 40)
                                     .font(.title)
+                                    .buttonStyle(.glassProminent)
                             }
-                            .padding(.horizontal)
+                            .padding(.leading)
                         }
                         .padding(.horizontal)
                     }
+                    .glassEffect()
+                    .padding(.horizontal)
                 }
                 
                 
