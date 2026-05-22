@@ -12,6 +12,8 @@ struct ClassSetupView: View {
     @State private var className: String = ""
     @FocusState private var classFieldIsFocused: Bool
     
+    @State private var doPresentColours: Bool = false
+    
     var body: some View {
         NavigationStack {
             VStack {
@@ -51,22 +53,20 @@ struct ClassSetupView: View {
                         HStack {
                             Button {
                                 // colour
+                                doPresentColours = true
                                 
                             } label: {
                                 RoundedRectangle(cornerSize: CGSize.init(width: 30, height: 30))
-                                    .frame(width: 40, height: 40)
-                                    .overlay(
-                                        RoundedRectangle(cornerRadius: 30)
-                                            .stroke(Color.black, lineWidth: 5)
-                                    )
+                                    .frame(width: 30, height: 30)
                             }
                             .padding(.horizontal)
+                            .popover(isPresented: $doPresentColours) { ColourPopover() }
                             
                             Button {
                                 // add
                                 
                             } label: {
-                                Image(systemName: "plus")
+                                Image(systemName: "plus.circle.fill")
                                     .fontWeight(.black)
                                     .frame(width: 40, height: 40)
                                     .font(.title)
