@@ -18,7 +18,7 @@ public struct Time {
 }
 
 // default structure that days will follow
-public struct Subject {
+public struct Period {
     var isPeriod: Bool // false = break, true = period
     var startTime: Date
     var endTime: Date
@@ -29,26 +29,31 @@ public struct DayClass {
     var classes: [String] // names
 }
 
+public struct Subject {
+    var name: String
+    var colour: String
+}
+
 
 class DataController: ObservableObject {
     //MARK: - subjects
     
     // subjects that user has
-    public var userSubjects = [String]()
+    public var userSubjects = [Subject]()
     
     // the subjects that a user has on a day (an array of DayClass objects would order the classes of each day)
     public var userSetSubjects = [DayClass]()
     
     //MARK: - structures
     
-    @Published public var userBaseDayStructure = [Subject]()
+    @Published public var userBaseDayStructure = [Period]()
     
     // all the classes that have overrides
     // ["day", "period", "class or break", "start time", "end time"]
     
     public struct OverDayStructure {
         var day: Int
-        var classes: [Subject]
+        var classes: [Period]
     }
     
     public var userOverrideStructures = [OverDayStructure]()

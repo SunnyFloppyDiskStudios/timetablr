@@ -56,7 +56,7 @@ struct StructureSetupView: View {
                             // add class
                             period += 1
                             
-                            data.userBaseDayStructure.append(Subject.init(isPeriod: true, startTime: Date(), endTime: Date()))
+                            data.userBaseDayStructure.append(Period.init(isPeriod: true, startTime: Date(), endTime: Date()))
                             
                         }, label: {
                             Text("Add class")
@@ -68,7 +68,7 @@ struct StructureSetupView: View {
                         
                         Button(action: {
                             // add break
-                            data.userBaseDayStructure.append(Subject.init(isPeriod: false, startTime: Date(), endTime: Date()))
+                            data.userBaseDayStructure.append(Period.init(isPeriod: false, startTime: Date(), endTime: Date()))
                             
                         }, label: {
                             Text("Add break")
