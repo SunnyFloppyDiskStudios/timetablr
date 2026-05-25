@@ -31,7 +31,7 @@ public struct DayClass {
 
 public struct Subject {
     var name: String
-    var colour: String
+    var colour: Color
 }
 
 
@@ -39,10 +39,10 @@ class DataController: ObservableObject {
     //MARK: - subjects
     
     // subjects that user has
-    public var userSubjects = [Subject]()
+    @Published public var userSubjects = [Subject]()
     
     // the subjects that a user has on a day (an array of DayClass objects would order the classes of each day)
-    public var userSetSubjects = [DayClass]()
+    @Published public var userSetSubjects = [DayClass]()
     
     //MARK: - structures
     
@@ -56,5 +56,5 @@ class DataController: ObservableObject {
         var classes: [Period]
     }
     
-    public var userOverrideStructures = [OverDayStructure]()
+    @Published public var userOverrideStructures = [OverDayStructure]()
 }

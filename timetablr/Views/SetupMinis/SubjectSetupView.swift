@@ -14,6 +14,9 @@ struct ClassSetupView: View {
     
     @State private var doPresentColours: Bool = false
     
+    @StateObject var colour = ColourController()
+    @StateObject var data = DataController()
+
     var body: some View {
         NavigationStack {
             VStack {
@@ -33,7 +36,13 @@ struct ClassSetupView: View {
                 VStack {
                     Spacer()
                     
-                    // !
+                    List {
+                        ForEach(data.userSubjects.indices, id: \.self) { i in
+                            Text(data.userSubjects[i].name)
+                                .foregroundStyle(data.userSubjects[i].colour)
+                        }
+                        .onDelete(perform: deleteItem);
+                    }
                     
                     Spacer()
                     
@@ -58,11 +67,17 @@ struct ClassSetupView: View {
                             } label: {
                                 RoundedRectangle(cornerSize: CGSize.init(width: 30, height: 30))
                                     .frame(width: 30, height: 30)
+                                    .foregroundStyle(colour.chosenColour)
                             }
-                            .popover(isPresented: $doPresentColours) { ColourPopover() }
+                            .popover(isPresented: $doPresentColours) {
+                                ColourPopover(colour: colour)
+                            }
                             
                             Button {
                                 // add
+                                data.userSubjects.append(Subject(name: className, colour: colour.chosenColour))
+                                
+                                className = ""
                                 
                             } label: {
                                 Image(systemName: "plus")
@@ -90,6 +105,10 @@ struct ClassSetupView: View {
                 .padding()
             }
         }
+    }
+    
+    func deleteItem(_ pos: IndexSet) {
+        data.userSubjects.remove(atOffsets: pos)
     }
 }
 
