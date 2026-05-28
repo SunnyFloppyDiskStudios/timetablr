@@ -11,6 +11,9 @@ import SwiftUI
 struct InitialView: View {
     @State private var transition = false
     
+    @StateObject var data: DataController
+    @StateObject var colour: ColourController
+    
     var body: some View {
         VStack {
             Text("Timetablr")
@@ -25,12 +28,12 @@ struct InitialView: View {
             }
             .padding()
             .fullScreenCover(isPresented: $transition) {
-                StructureSetupView() // stage 1
+                StructureSetupView(data: data, colour: colour) // stage 1
             }
         }
     }
 }
 
 #Preview {
-    InitialView()
+    InitialView(data: DataController(), colour: ColourController(data: DataController()))
 }

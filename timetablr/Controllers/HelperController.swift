@@ -8,6 +8,13 @@
 
 import Foundation
 
+//MARK: - variables
+public struct Time {
+    var hours: Int
+    var minutes: Int
+}
+
+//MARK: - functions
 // Convert string Date to Date() type (mainly for debugging)
 public func dateFromString(_ dateString: String) -> Date {
     let dateFormatter = DateFormatter()

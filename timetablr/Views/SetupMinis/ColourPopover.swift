@@ -7,16 +7,12 @@
 //  Popover view for user to select class colour
 
 import SwiftUI
-import Combine
-
-class ColourController: ObservableObject {
-    @Published var chosenColour: Color = Color.red
-}
 
 struct ColourPopover: View {
     @Environment(\.dismiss) private var dismiss
     
-    @StateObject var colour = ColourController()
+    @StateObject var colour: ColourController
+    @StateObject var data: DataController
     
     var body: some View {
         VStack {
@@ -39,32 +35,36 @@ struct ColourPopover: View {
                 .foregroundStyle(colour.chosenColour)
             
             Button {
-                colour.chosenColour = .blue
+                colour.doColour(.blue)
             } label: {
                 Text("blue")
                     .tint(.blue)
             }
             
             Button {
-                colour.chosenColour = .green
+                colour.doColour(.green)
             } label: {
                 Text("green")
                     .tint(.green)
             }
             
             Button {
-                colour.chosenColour = .red
+                colour.doColour(.red)
             } label: {
                 Text("red")
                     .tint(.red)
             }
             
             Spacer()
+                .onDisappear() {
+                    colour.stopRecolour()
+                }
         }
         .padding()
     }
+
 }
 
 #Preview {
-    ColourPopover()
+    ColourPopover(colour: ColourController(data: DataController()), data: DataController())
 }

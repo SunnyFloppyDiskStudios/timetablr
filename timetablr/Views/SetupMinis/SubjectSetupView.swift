@@ -14,8 +14,8 @@ struct ClassSetupView: View {
     
     @State private var doPresentColours: Bool = false
     
-    @StateObject var colour = ColourController()
-    @StateObject var data = DataController()
+    @StateObject var colour: ColourController
+    @StateObject var data: DataController
 
     var body: some View {
         NavigationStack {
@@ -38,8 +38,13 @@ struct ClassSetupView: View {
                     
                     List {
                         ForEach(data.userSubjects.indices, id: \.self) { i in
-                            Text(data.userSubjects[i].name)
-                                .foregroundStyle(data.userSubjects[i].colour)
+                            Button() {
+                                doPresentColours = true
+                                colour.startRecolour(i)
+                            } label: {
+                                Text(data.userSubjects[i].name)
+                                    .foregroundStyle(data.userSubjects[i].colour)
+                            }
                         }
                         .onDelete(perform: deleteItem);
                     }
@@ -51,7 +56,10 @@ struct ClassSetupView: View {
                             TextField("Class Name", text: $className)
                                 .focused($classFieldIsFocused)
                                 .onSubmit {
+                                    // add
+                                    data.userSubjects.append(Subject(name: className, colour: colour.chosenColour))
                                     
+                                    className = ""
                                 }
                                 .textInputAutocapitalization(.never)
                                 .disableAutocorrection(true)
@@ -70,7 +78,7 @@ struct ClassSetupView: View {
                                     .foregroundStyle(colour.chosenColour)
                             }
                             .popover(isPresented: $doPresentColours) {
-                                ColourPopover(colour: colour)
+                                ColourPopover(colour: colour, data: data)
                             }
                             
                             Button {
@@ -113,5 +121,5 @@ struct ClassSetupView: View {
 }
 
 #Preview {
-    ClassSetupView()
+    ClassSetupView(colour: ColourController(data: DataController()), data: DataController())
 }

@@ -12,49 +12,41 @@ import Foundation
 import SwiftUI
 import Combine
 
-public struct Time {
-    var hours: Int
-    var minutes: Int
-}
-
-// default structure that days will follow
-public struct Period {
+//MARK: - structs
+public struct Period { // period is for structure
     var isPeriod: Bool // false = break, true = period
     var startTime: Date
     var endTime: Date
 }
 
-public struct DayClass {
-    var day: Int
-    var classes: [String] // names
-}
-
-public struct Subject {
+public struct Subject { // subject is for class
     var name: String
     var colour: Color
 }
 
+public struct DayStructure {
+    var day: Int
+    var classes: [String] // names
+}
+
+public struct OverridenDayStructure {
+    var day: Int
+    var classes: [Period]
+}
 
 class DataController: ObservableObject {
-    //MARK: - subjects
+    //MARK: - variables
     
     // subjects that user has
     @Published public var userSubjects = [Subject]()
     
     // the subjects that a user has on a day (an array of DayClass objects would order the classes of each day)
-    @Published public var userSetSubjects = [DayClass]()
+    @Published public var userSetSubjects = [DayStructure]()
     
-    //MARK: - structures
-    
+    // structure for normal days
     @Published public var userBaseDayStructure = [Period]()
     
     // all the classes that have overrides
     // ["day", "period", "class or break", "start time", "end time"]
-    
-    public struct OverDayStructure {
-        var day: Int
-        var classes: [Period]
-    }
-    
-    @Published public var userOverrideStructures = [OverDayStructure]()
+    @Published public var userOverrideStructures = [OverridenDayStructure]()
 }

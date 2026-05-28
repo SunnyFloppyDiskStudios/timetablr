@@ -13,7 +13,8 @@ struct StructureSetupView: View {
     @State var sdate = Date()
     @State var edate = Date()
     
-    @StateObject var data = DataController()
+    @StateObject var data: DataController
+    @StateObject var colour: ColourController
     
     var body: some View {
         NavigationStack {
@@ -82,7 +83,7 @@ struct StructureSetupView: View {
                 
                 //MARK: - bottom bar
                 NavigationLink {
-                    ClassSetupView()
+                    ClassSetupView(colour: colour, data: data)
                 } label: {
                     Text("Next")
                     Image(systemName: "chevron.right")
@@ -100,5 +101,5 @@ struct StructureSetupView: View {
 }
 
 #Preview {
-    StructureSetupView()
+    StructureSetupView(data: DataController(), colour: ColourController(data: DataController()))
 }
