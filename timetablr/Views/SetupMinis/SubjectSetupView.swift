@@ -83,8 +83,10 @@ struct ClassSetupView: View {
                             
                             Button {
                                 // add
-                                data.userSubjects.append(Subject(name: className, colour: colour.chosenColour))
-                                
+                                if (!className.isEmpty) {
+                                    data.userSubjects.append(Subject(name: className, colour: colour.chosenColour))
+                                }
+
                                 className = ""
                                 
                             } label: {
