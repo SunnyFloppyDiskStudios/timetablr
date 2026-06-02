@@ -8,6 +8,7 @@
 
 import SwiftUI
 
+/// Popover view for setting class colours
 struct ColourPopover: View {
     @Environment(\.dismiss) private var dismiss
     

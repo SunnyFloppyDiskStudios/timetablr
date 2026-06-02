@@ -8,6 +8,7 @@
 
 import SwiftUI
 
+/// Welcome screen on first load
 struct InitialView: View {
     @State private var transition = false
     

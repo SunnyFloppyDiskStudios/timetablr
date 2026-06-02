@@ -8,6 +8,7 @@
 
 import SwiftUI
 
+/// Mini setup view for setting up the user's default day structure
 struct StructureSetupView: View {
     @State var periodCount = 0
     

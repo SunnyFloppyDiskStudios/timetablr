@@ -8,6 +8,7 @@
 
 import SwiftUI
 
+/// Mini setup view for adding the subject classes a user will have
 struct ClassSetupView: View {
     @State private var className: String = ""
     @FocusState private var classFieldIsFocused: Bool
@@ -27,7 +28,7 @@ struct ClassSetupView: View {
                     .multilineTextAlignment(.center)
                     .padding()
                 
-                Text("Add all the classes you attend. You will be able to add these to your structure after.")
+                Text("Add all the subjects you attend. You will be able to add these to your structure after.")
                     .padding()
                 
                 Spacer()
