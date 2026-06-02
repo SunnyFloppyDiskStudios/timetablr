@@ -10,8 +10,10 @@ import Foundation
 import Combine
 import SwiftUI
 
+/// Manages timetable colours for classes.
 class ColourController: ObservableObject {
-    var data: DataController    
+    // access shared data
+    var data: DataController
     
     init(data: DataController) {
         self.data = data
@@ -27,18 +29,18 @@ class ColourController: ObservableObject {
     
     
     // functions
-    func startRecolour(_ index: Int) {
+    func startRecolouring(atIndex index: Int) {
         // set object, recolour, then set to some blank item
         isRecolouring = true
         colourTargetOnRecolour = index
     }
     
-    func stopRecolour() {
+    func stopRecolouring() {
         isRecolouring = false
         colourTargetOnRecolour = 0
     }
     
-    func doColour(_ newColour: Color) {
+    func setColour(of newColour: Color) {
         if !isRecolouring {
             chosenColour = newColour
         } else {

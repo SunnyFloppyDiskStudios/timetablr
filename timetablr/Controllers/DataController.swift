@@ -13,40 +13,35 @@ import SwiftUI
 import Combine
 
 //MARK: - structs
-public struct Period { // period is for structure
+/// Some class or break in a timetable day. Used in structure
+public struct Period {
     var isPeriod: Bool // false = break, true = period
     var startTime: Date
     var endTime: Date
 }
 
-public struct Subject { // subject is for class
+/// Defines a class that a user has, i.e. Math
+public struct Subject {
     var name: String
     var colour: Color
 }
 
-public struct DayStructure {
-    var day: Int
-    var classes: [String] // names
-}
-
+/// A special timetable structure that might be used on days with different timetable structures
 public struct OverridenDayStructure {
     var day: Int
     var classes: [Period]
 }
 
+/// Controller for managing user data
 class DataController: ObservableObject {
     //MARK: - variables
     
-    // subjects that user has
+    /// Array of classes that a user has.
     @Published public var userSubjects = [Subject]()
     
-    // the subjects that a user has on a day (an array of DayClass objects would order the classes of each day)
-    @Published public var userSetSubjects = [DayStructure]()
-    
-    // structure for normal days
+    /// Array of subjects that a user has on a day. This is the normal timetable structure
     @Published public var userBaseDayStructure = [Period]()
     
-    // all the classes that have overrides
-    // ["day", "period", "class or break", "start time", "end time"]
+    /// Array of overridden timetable structures
     @Published public var userOverrideStructures = [OverridenDayStructure]()
 }

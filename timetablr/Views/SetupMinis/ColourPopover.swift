@@ -35,21 +35,21 @@ struct ColourPopover: View {
                 .foregroundStyle(colour.chosenColour)
             
             Button {
-                colour.doColour(.blue)
+                colour.setColour(of: .blue)
             } label: {
                 Text("blue")
                     .tint(.blue)
             }
             
             Button {
-                colour.doColour(.green)
+                colour.setColour(of: .green)
             } label: {
                 Text("green")
                     .tint(.green)
             }
             
             Button {
-                colour.doColour(.red)
+                colour.setColour(of: .red)
             } label: {
                 Text("red")
                     .tint(.red)
@@ -57,7 +57,7 @@ struct ColourPopover: View {
             
             Spacer()
                 .onDisappear() {
-                    colour.stopRecolour()
+                    colour.stopRecolouring()
                 }
         }
         .padding()

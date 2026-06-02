@@ -12,7 +12,7 @@ struct ClassSetupView: View {
     @State private var className: String = ""
     @FocusState private var classFieldIsFocused: Bool
     
-    @State private var doPresentColours: Bool = false
+    @State private var shouldPresentColours: Bool = false
     
     @StateObject var colour: ColourController
     @StateObject var data: DataController
@@ -39,8 +39,8 @@ struct ClassSetupView: View {
                     List {
                         ForEach(data.userSubjects.indices, id: \.self) { i in
                             Button() {
-                                doPresentColours = true
-                                colour.startRecolour(i)
+                                shouldPresentColours = true
+                                colour.startRecolouring(atIndex: i)
                             } label: {
                                 Text(data.userSubjects[i].name)
                                     .foregroundStyle(data.userSubjects[i].colour)
@@ -70,14 +70,14 @@ struct ClassSetupView: View {
                         HStack {
                             Button {
                                 // colour
-                                doPresentColours = true
+                                shouldPresentColours = true
                                 
                             } label: {
                                 RoundedRectangle(cornerSize: CGSize.init(width: 30, height: 30))
                                     .frame(width: 30, height: 30)
                                     .foregroundStyle(colour.chosenColour)
                             }
-                            .popover(isPresented: $doPresentColours) {
+                            .popover(isPresented: $shouldPresentColours) {
                                 ColourPopover(colour: colour, data: data)
                             }
                             
@@ -117,7 +117,7 @@ struct ClassSetupView: View {
         }
     }
     
-    func deleteItem(_ pos: IndexSet) {
+    func deleteItem(atIndex pos: IndexSet) {
         data.userSubjects.remove(atOffsets: pos)
     }
 }

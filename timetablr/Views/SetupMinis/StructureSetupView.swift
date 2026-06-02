@@ -9,9 +9,7 @@
 import SwiftUI
 
 struct StructureSetupView: View {
-    @State var period = 0
-    @State var sdate = Date()
-    @State var edate = Date()
+    @State var periodCount = 0
     
     @StateObject var data: DataController
     @StateObject var colour: ColourController
@@ -55,7 +53,7 @@ struct StructureSetupView: View {
                         
                         Button(action: {
                             // add class
-                            period += 1
+                            periodCount += 1
                             
                             data.userBaseDayStructure.append(Period.init(isPeriod: true, startTime: Date(), endTime: Date()))
                             
@@ -95,7 +93,7 @@ struct StructureSetupView: View {
     
     //MARK: - functions
     
-    func deleteItem(_ pos: IndexSet) {
+    func deleteItem(atIndex pos: IndexSet) {
         data.userBaseDayStructure.remove(atOffsets: pos)
     }
 }
