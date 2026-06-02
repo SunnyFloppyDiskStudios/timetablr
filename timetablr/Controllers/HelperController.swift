@@ -16,6 +16,10 @@ public struct Time {
 
 //MARK: - functions
 /// Convert string Date to Date() type (mainly for debugging)
+///
+/// Parameter dateString: An object of type Date that was parsed into a string.
+///
+/// Returns: A Date object from the saved string.
 public func getDateFromString(_ dateString: String) -> Date {
     let dateFormatter = DateFormatter()
     dateFormatter.dateFormat = "HH:mm"

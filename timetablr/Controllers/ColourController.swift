@@ -29,18 +29,25 @@ class ColourController: ObservableObject {
     
     
     // functions
+    /// Choose a subject to set the colour of
+    ///
+    /// Parameter index: Index of class in an array of which the colour is being changed.
     func startRecolouring(atIndex index: Int) {
         // set object, recolour, then set to some blank item
         isRecolouring = true
         colourTargetOnRecolour = index
     }
     
+    /// Dismiss the ColourPopover UI
     func stopRecolouring() {
         isRecolouring = false
         colourTargetOnRecolour = 0
     }
     
-    func setColour(of newColour: Color) {
+    /// Set the colour of a UI object
+    ///
+    /// Parameter newColour: The colour which the UI object is set to.
+    func setColour(_ newColour: Color) {
         if !isRecolouring {
             chosenColour = newColour
         } else {

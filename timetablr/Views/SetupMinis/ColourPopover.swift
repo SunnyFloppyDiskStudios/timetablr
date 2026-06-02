@@ -36,21 +36,21 @@ struct ColourPopover: View {
                 .foregroundStyle(colour.chosenColour)
             
             Button {
-                colour.setColour(of: .blue)
+                colour.setColour(.blue)
             } label: {
                 Text("blue")
                     .tint(.blue)
             }
             
             Button {
-                colour.setColour(of: .green)
+                colour.setColour(.green)
             } label: {
                 Text("green")
                     .tint(.green)
             }
             
             Button {
-                colour.setColour(of: .red)
+                colour.setColour(.red)
             } label: {
                 Text("red")
                     .tint(.red)
