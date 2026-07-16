@@ -26,10 +26,21 @@ public struct Subject {
     var colour: Color
 }
 
+/// Defines a lesson with relevant information
+public struct Class {
+    var subject: Subject
+}
+
 /// A special timetable structure that might be used on days with different timetable structures. Requires setting a specific day and list of periods.
 public struct OverridenDayStructure {
     var day: Int
     var classes: [Period]
+}
+
+/// The subjects a user has in a day, in order of when they occur
+public struct DaySubjects {
+    var day: Int
+    var subjects: [Class]
 }
 
 /// Controller for managing user data
@@ -44,4 +55,11 @@ class DataController: ObservableObject {
     
     /// Array of overridden timetable structures
     @Published public var userOverrideStructures = [OverridenDayStructure]()
+    
+    /// List of days the user wishes to display
+    @Published public var displayDays: [Int] = [1,2,3,4,5,6,7] // 1 - 7 based on monday - sunday
+    public let days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
+    
+    /// Array of days with classes for the user to attend
+    @Published public var userDaySubjects: [DaySubjects] = [DaySubjects.init(day: 1, subjects: [Class]()), DaySubjects.init(day: 2, subjects: [Class]()), DaySubjects.init(day: 3, subjects: [Class]()), DaySubjects.init(day: 4, subjects: [Class]()), DaySubjects.init(day: 5, subjects: [Class]()), DaySubjects.init(day: 6, subjects: [Class]()), DaySubjects.init(day: 7, subjects: [Class]())]
 }

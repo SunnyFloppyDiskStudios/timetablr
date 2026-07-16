@@ -40,7 +40,7 @@ struct StructureSetupView: View {
                                 Text(data.userBaseDayStructure[i].isPeriod ? "CLASS":"BREAK")
                                 Spacer()
                                 DatePicker(selection: $data.userBaseDayStructure[i].startTime, displayedComponents: [.hourAndMinute]) {}
-                                Text("-")
+                                Text("  -  ")
                                 DatePicker(selection: $data.userBaseDayStructure[i].endTime, displayedComponents: [.hourAndMinute]) {}
                             }
                         }
