@@ -50,7 +50,7 @@ class DataController: ObservableObject {
     /// Array of classes that a user has.
     @Published public var userSubjects = [Subject]()
     
-    /// Array of subjects that a user has on a day. This is the normal timetable structure
+    /// Array of periods that a user has on a day. This is the normal timetable structure
     @Published public var userBaseDayStructure = [Period]()
     
     /// Array of overridden timetable structures
@@ -58,6 +58,8 @@ class DataController: ObservableObject {
     
     /// List of days the user wishes to display
     @Published public var displayDays: [Int] = [1,2,3,4,5,6,7] // 1 - 7 based on monday - sunday
+    
+    /// Naming index
     public let days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
     
     /// Array of days with classes for the user to attend

@@ -33,23 +33,18 @@ struct ContentView: View {
                                 .font(.largeTitle)
                                 .fontWeight(.heavy)
                                 .foregroundStyle(i == scrollID ? .primary : .tertiary)
-                                .id(i)
                         }
                     }
                     .scrollTargetLayout()
                 }
                 .scrollTargetBehavior(.viewAligned)
                 .fixedSize(horizontal: false, vertical: true)
-                .scrollPosition(id: $scrollID)
                 
                 // timetable view
                 ScrollView(.horizontal, showsIndicators: false) {
                     LazyHStack(spacing: 0) {
                         ForEach(0 ..< data.displayDays.count, id: \.self) { i in
-                            let day = data.userDaySubjects[i]
-                            
-                            TimetableView()
-                                .id(i)
+                            TimetableView(data: data, dayInt: i)
                                 .containerRelativeFrame(.horizontal)
                                 .scrollTransition(.animated, axis: .horizontal) { content, phase in
                                     content

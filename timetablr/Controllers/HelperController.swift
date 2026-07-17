@@ -24,6 +24,9 @@ public func getDateFromString(_ dateString: String) -> Date {
     let dateFormatter = DateFormatter()
     dateFormatter.dateFormat = "HH:mm"
     
+    dateFormatter.locale = Locale(identifier: "en_US_POSIX")
+    dateFormatter.timeZone = TimeZone(secondsFromGMT: 0)
+    
     print(dateFormatter.date(from: dateString) ?? Date())
     
     return dateFormatter.date(from: dateString) ?? Date()
