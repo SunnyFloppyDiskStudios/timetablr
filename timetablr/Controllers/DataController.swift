@@ -16,8 +16,8 @@ import Combine
 /// Some class or break in a timetable day. Used in structures and classes will conform to these periods.
 public struct Period {
     var isPeriod: Bool // false = break, true = period
-    var startTime: Date
-    var endTime: Date
+    var startTime: Time
+    var endTime: Time
 }
 
 /// Defines a class that a user has, i.e. Math

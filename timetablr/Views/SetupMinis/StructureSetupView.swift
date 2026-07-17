@@ -15,6 +15,10 @@ struct StructureSetupView: View {
     @StateObject var data: DataController
     @StateObject var colour: ColourController
     
+    
+    @State private var lastGivenHour: Int = 8 // last given end time hour
+    @State private var lastGivenMinute: Int = 30 // last given end time minute
+    
     var body: some View {
         NavigationStack {
             VStack {
@@ -25,7 +29,7 @@ struct StructureSetupView: View {
                     .multilineTextAlignment(.center)
                     .padding()
                 
-                Text("Set up a layout for the structure of your days. You can set overrides later.")
+                Text("Set up a layout for the structure of your days. You can set overrides later. Uses 24 hour time.")
                     .padding()
                 
                 Spacer()
@@ -39,9 +43,44 @@ struct StructureSetupView: View {
                             HStack {
                                 Text(data.userBaseDayStructure[i].isPeriod ? "CLASS":"BREAK")
                                 Spacer()
-                                DatePicker(selection: $data.userBaseDayStructure[i].startTime, displayedComponents: [.hourAndMinute]) {}
-                                Text("  -  ")
-                                DatePicker(selection: $data.userBaseDayStructure[i].endTime, displayedComponents: [.hourAndMinute]) {}
+                                // hour
+                                Picker("", selection: $data.userBaseDayStructure[i].startTime.hours) {
+                                    ForEach(1 ..< 24, id: \.self) { t in
+                                        Text(String(format: "%02d", t))
+                                    }
+                                }
+                                .pickerStyle(.menu)
+                                .menuIndicator(.hidden)
+                                Text("  :")
+                                // minute
+                                Picker("", selection: $data.userBaseDayStructure[i].startTime.minutes) {
+                                    ForEach(1 ..< 60, id: \.self) { t in
+                                        Text(String(format: "%02d", t))
+                                    }
+                                }
+                                .pickerStyle(.menu)
+                                .menuIndicator(.hidden)
+
+                                Text("    -  ")
+                                
+                                // hour
+                                Picker("", selection: $data.userBaseDayStructure[i].endTime.hours) {
+                                    ForEach(1 ..< 24, id: \.self) { t in
+                                        Text(String(format: "%02d", t))
+                                    }
+                                }
+                                .pickerStyle(.menu)
+                                .menuIndicator(.hidden)
+                                Text("  :")
+                                // minute
+                                Picker("", selection: $data.userBaseDayStructure[i].endTime.minutes) {
+                                    ForEach(1 ..< 60, id: \.self) { t in
+                                        Text(String(format: "%02d", t))
+                                    }
+                                }
+                                .pickerStyle(.menu)
+                                .menuIndicator(.hidden)
+
                             }
                         }
                         .onDelete(perform: deleteItem);
@@ -56,7 +95,7 @@ struct StructureSetupView: View {
                             // add class
                             periodCount += 1
                             
-                            data.userBaseDayStructure.append(Period.init(isPeriod: true, startTime: Date(), endTime: Date()))
+                            data.userBaseDayStructure.append(Period.init(isPeriod: true, startTime: Time(hours: lastGivenHour, minutes: lastGivenMinute), endTime: Time(hours: lastGivenHour + 1, minutes: lastGivenMinute)))
                             
                         }, label: {
                             Text("Add class")
@@ -68,7 +107,7 @@ struct StructureSetupView: View {
                         
                         Button(action: {
                             // add break
-                            data.userBaseDayStructure.append(Period.init(isPeriod: false, startTime: Date(), endTime: Date()))
+                            data.userBaseDayStructure.append(Period.init(isPeriod: false, startTime: Time(hours: lastGivenHour, minutes: lastGivenMinute), endTime: Time(hours: lastGivenHour + 1, minutes: lastGivenMinute)))
                             
                         }, label: {
                             Text("Add break")
