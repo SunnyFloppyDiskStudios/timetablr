@@ -42,13 +42,19 @@ struct ContentView: View {
                 
                 // timetable view
                 ScrollView(.horizontal, showsIndicators: false) {
-                    LazyHStack(spacing: 0) {
+                    HStack(spacing: 0) {
                         ForEach(0 ..< data.displayDays.count, id: \.self) { i in
                             TimetableView(data: data, dayInt: i)
                                 .containerRelativeFrame(.horizontal)
                                 .scrollTransition(.animated, axis: .horizontal) { content, phase in
                                     content
                                         .opacity(phase.isIdentity ? 1.0 : 0.6)
+                                }
+                                .onAppear {
+                                    print("APPEARED:", i)
+                                }
+                                .onDisappear {
+                                    print("DISAPPEARED:", i)
                                 }
                         }
                     }
@@ -66,6 +72,7 @@ struct ContentView: View {
         }
         .padding()
     }
+    
 }
 
 #Preview {

@@ -6,7 +6,7 @@
 //
 //  File which stores/saves/loads data
 
-// monday is 1 .. sunday is 7
+// monday is 0 .. sunday is 6
 
 import Foundation
 import SwiftUI
@@ -28,6 +28,7 @@ public struct Subject {
 
 /// Defines a lesson with relevant information
 public struct Class {
+    var period: Int
     var subject: Subject
 }
 
@@ -63,5 +64,25 @@ class DataController: ObservableObject {
     public let days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
     
     /// Array of days with classes for the user to attend
-    @Published public var userDaySubjects: [DaySubjects] = [DaySubjects.init(day: 1, subjects: [Class]()), DaySubjects.init(day: 2, subjects: [Class]()), DaySubjects.init(day: 3, subjects: [Class]()), DaySubjects.init(day: 4, subjects: [Class]()), DaySubjects.init(day: 5, subjects: [Class]()), DaySubjects.init(day: 6, subjects: [Class]()), DaySubjects.init(day: 7, subjects: [Class]())]
+    @Published public var userDaySubjects = [DaySubjects]()
+    
+    init() {
+        // DEBUG DATA!!!! DELETE IN PRODUCTION !!!!
+        
+        userDaySubjects.append(DaySubjects.init(day: 0, subjects: [
+            Class.init(period: 0, subject: Subject.init(name: "Test1", colour: .red)),
+            Class.init(period: 1, subject: Subject.init(name: "Test2", colour: .blue)),
+            Class.init(period: 3, subject: Subject.init(name: "Test3", colour: .green)),
+            Class.init(period: 4, subject: Subject.init(name: "Test4", colour: .red)),
+            Class.init(period: 6, subject: Subject.init(name: "Test5", colour: .yellow)),
+        ]))
+        
+        userBaseDayStructure.append(Period.init(isPeriod: true, startTime: Time(hours: 8, minutes: 45), endTime: Time(hours: 9, minutes: 45)))
+        userBaseDayStructure.append(Period.init(isPeriod: true, startTime: Time(hours: 9, minutes: 45), endTime: Time(hours: 10, minutes: 45)))
+        userBaseDayStructure.append(Period.init(isPeriod: false, startTime: Time(hours: 10, minutes: 45), endTime: Time(hours: 11, minutes: 15)))
+        userBaseDayStructure.append(Period.init(isPeriod: true, startTime: Time(hours: 11, minutes: 15), endTime: Time(hours: 12, minutes: 15)))
+        userBaseDayStructure.append(Period.init(isPeriod: true, startTime: Time(hours: 12, minutes: 15), endTime: Time(hours: 13, minutes: 15)))
+        userBaseDayStructure.append(Period.init(isPeriod: false, startTime: Time(hours: 13, minutes: 15), endTime: Time(hours: 14, minutes: 00)))
+        userBaseDayStructure.append(Period.init(isPeriod: true, startTime: Time(hours: 14, minutes: 30), endTime: Time(hours: 15, minutes: 30)))
+    }
 }

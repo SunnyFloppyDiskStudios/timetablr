@@ -8,35 +8,51 @@
 import SwiftUI
 
 struct TimetableView: View {
-    @StateObject var data: DataController
+    init(data: DataController, dayInt: Int) {
+        self.data = data
+        self.dayInt = dayInt
+        print("TIMETABLE CREATED:", dayInt)
+    }
+    
+    @ObservedObject var data: DataController
     
     var dayInt: Int
     
     var body: some View {
         ScrollView {
             VStack {
-//                ForEach(0 ..< data.userBaseDayStructure.count, id: \.self) { i in
-//                    Text("\(data.userBaseDayStructure[i])")
-//                }
+                ForEach(0 ..< data.userBaseDayStructure.count, id: \.self) { i in
+                    let isPeriod = data.userBaseDayStructure[i].isPeriod
+                    
+                    let relevantSubject = data.userDaySubjects
+                        .first(where: { $0.day == dayInt })?
+                        .subjects
+                        .first(where: { $0.period == i })?
+                        .subject
+
+                    let className: String = {
+                        if !isPeriod { return "Break" }
+
+                        return relevantSubject?.name ?? ""
+                    }()
+                    
+                    Button {
+                        
+                    } label: {
+                        HStack {
+                            Text(className)
+                                .padding()
+                            
+                            Spacer()
+                            
+                            Text("\(data.userBaseDayStructure[i].startTime.hours):\(data.userBaseDayStructure[i].startTime.minutes) - \(data.userBaseDayStructure[i].endTime.hours):\(data.userBaseDayStructure[i].endTime.minutes)")
+                                .padding()
+                        }
+                        .background(relevantSubject?.colour)
+                        .foregroundStyle(.black)
+                    }
+                }
             }
-        }
-        .onAppear() {
-            // DEBUG
-            data.userDaySubjects.append(DaySubjects.init(day: 1, subjects: [
-                Class.init(subject: Subject.init(name: "Test1", colour: .red)),
-                Class.init(subject: Subject.init(name: "Test2", colour: .red)),
-                Class.init(subject: Subject.init(name: "Test3", colour: .red)),
-                Class.init(subject: Subject.init(name: "Test4", colour: .red)),
-                Class.init(subject: Subject.init(name: "Test5", colour: .red)),
-            ]))
-            
-//            data.userBaseDayStructure.append(Period.init(isPeriod: true, startTime: getDateFromString("08:45"), endTime: getDateFromString("09:45")))
-//            data.userBaseDayStructure.append(Period.init(isPeriod: true, startTime: getDateFromString("09:45"), endTime: getDateFromString("10:45")))
-//            data.userBaseDayStructure.append(Period.init(isPeriod: false, startTime: getDateFromString("10:45"), endTime: getDateFromString("11:15")))
-//            data.userBaseDayStructure.append(Period.init(isPeriod: true, startTime: getDateFromString("11:15"), endTime: getDateFromString("12:15")))
-//            data.userBaseDayStructure.append(Period.init(isPeriod: true, startTime: getDateFromString("12:15"), endTime: getDateFromString("13:15")))
-//            data.userBaseDayStructure.append(Period.init(isPeriod: false, startTime: getDateFromString("13:15"), endTime: getDateFromString("14:00")))
-//            data.userBaseDayStructure.append(Period.init(isPeriod: true, startTime: getDateFromString("14:30"), endTime: getDateFromString("15:30")))
         }
     }
 }
