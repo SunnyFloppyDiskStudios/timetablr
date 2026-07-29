@@ -20,7 +20,7 @@ struct TimetableView: View {
     
     var body: some View {
         ScrollView {
-            VStack {
+            VStack(spacing: 0) {
                 ForEach(0 ..< data.userBaseDayStructure.count, id: \.self) { i in
                     let isPeriod = data.userBaseDayStructure[i].isPeriod
                     
@@ -42,14 +42,18 @@ struct TimetableView: View {
                         HStack {
                             Text(className)
                                 .padding()
+                                .fontWeight(.bold)
+                                .font(.system(size: 30))
                             
                             Spacer()
                             
                             Text("\(data.userBaseDayStructure[i].startTime.hours):\(data.userBaseDayStructure[i].startTime.minutes) - \(data.userBaseDayStructure[i].endTime.hours):\(data.userBaseDayStructure[i].endTime.minutes)")
                                 .padding()
                         }
-                        .background(relevantSubject?.colour)
-                        .foregroundStyle(.black)
+                        .frame(height: 90)
+                        .background(relevantSubject?.colour ?? .secondaryBackground)
+                        .foregroundStyle(.inverseTextColour)
+                        
                     }
                 }
             }

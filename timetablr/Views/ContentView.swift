@@ -16,12 +16,6 @@ struct ContentView: View {
     
     var body: some View {
         VStack {
-            // navbar
-            // week cycle toggler
-            
-            // timetable view
-            // scrolling weekdays
-            // scrolling timetable views (carousel)
             VStack {
                 // nav bar (day bar)
                 ScrollView(.horizontal, showsIndicators: false) {
