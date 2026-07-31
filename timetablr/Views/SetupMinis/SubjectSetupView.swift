@@ -17,6 +17,8 @@ struct ClassSetupView: View {
     
     @StateObject var colour: ColourController
     @StateObject var data: DataController
+    
+    @State private var transition: Bool = false
 
     var body: some View {
         NavigationStack {
@@ -108,12 +110,14 @@ struct ClassSetupView: View {
                 
                 // next button
                 NavigationLink {
-                    // finish
                 } label: {
                     Text("Next")
                     Image(systemName: "chevron.right")
                 }
                 .padding()
+                .fullScreenCover(isPresented: $transition) {
+                    ContentView(data: data) 
+                }
             }
         }
     }
