@@ -50,10 +50,11 @@ struct TimetableView: View {
                             Text("\(data.userBaseDayStructure[i].startTime.hours):\(data.userBaseDayStructure[i].startTime.minutes) - \(data.userBaseDayStructure[i].endTime.hours):\(data.userBaseDayStructure[i].endTime.minutes)")
                                 .padding()
                         }
-                        .frame(height: 90)
+                        .frame(height: 70)
                         .background(relevantSubject?.colour ?? .secondaryBackground)
                         .foregroundStyle(.inverseTextColour)
-                        
+                        .padding(.horizontal, 18)
+                        .padding(.vertical, 9)
                     }
                 }
             }

@@ -110,7 +110,7 @@ struct ClassSetupView: View {
                 
                 // next button
                 Button {
-                    transition = true
+                    transition = true 
                 } label: {
                     Text("Next")
                     Image(systemName: "chevron.right")
