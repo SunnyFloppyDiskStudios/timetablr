@@ -53,7 +53,7 @@ struct TimetableView: View {
                         .frame(height: 70)
                         .background(relevantSubject?.colour ?? .secondaryBackground)
                         .foregroundStyle(.inverseTextColour)
-                        .padding(.horizontal, 18)
+//                        .padding(.horizontal, 18)
                         .padding(.vertical, 9)
                     }
                 }
