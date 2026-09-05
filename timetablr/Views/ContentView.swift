@@ -64,18 +64,20 @@ struct ContentView: View {
                             ScrollView(.horizontal, showsIndicators: false) {
                                 HStack(spacing: 0) {
                                     ForEach(0 ..< data.displayDays.count, id: \.self) { i in
-                                        TimetableView(data: data, dayInt: i)
-                                            .containerRelativeFrame(.horizontal)
-                                            .scrollTransition(.animated, axis: .horizontal) { content, phase in
-                                                content
-                                                    .opacity(phase.isIdentity ? 1.0 : 0.6)
-                                            }
-                                            .onAppear {
-                                                print("APPEARED:", i)
-                                            }
-                                            .onDisappear {
-                                                print("DISAPPEARED:", i)
-                                            }
+                                        if data.displayDays[i] == true {
+                                            TimetableView(data: data, dayInt: i)
+                                                .containerRelativeFrame(.horizontal)
+                                                .scrollTransition(.animated, axis: .horizontal) { content, phase in
+                                                    content
+                                                        .opacity(phase.isIdentity ? 1.0 : 0.6)
+                                                }
+                                                .onAppear {
+                                                    print("APPEARED:", i)
+                                                }
+                                                .onDisappear {
+                                                    print("DISAPPEARED:", i)
+                                                }
+                                        }
                                     }
                                 }
                                 .scrollTargetLayout()
@@ -87,12 +89,14 @@ struct ContentView: View {
                             ScrollView(.horizontal, showsIndicators: false) {
                                 LazyHStack(spacing: 10) {
                                     ForEach(0 ..< data.displayDays.count, id: \.self) { i in
-                                        let day = days[i]
-                                        
-                                        Text(day)
-                                            .font(.largeTitle)
-                                            .fontWeight(.heavy)
-                                            .foregroundStyle(i == scrollID ? .primary : .tertiary)
+                                        if data.displayDays[i] == true {
+                                            let day = days[i]
+                                            
+                                            Text(day)
+                                                .font(.largeTitle)
+                                                .fontWeight(.heavy)
+                                                .foregroundStyle(i == scrollID ? .primary : .tertiary)
+                                        }
                                     }
                                 }
                                 .scrollTargetLayout()

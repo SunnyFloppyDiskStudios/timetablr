@@ -54,7 +54,7 @@ struct StructureSetupView: View {
                                 Text("  :")
                                 // minute
                                 Picker("", selection: $data.userBaseDayStructure[i].startTime.minutes) {
-                                    ForEach(1 ..< 60, id: \.self) { t in
+                                    ForEach(0 ..< 60, id: \.self) { t in
                                         Text(String(format: "%02d", t))
                                     }
                                 }
@@ -74,7 +74,7 @@ struct StructureSetupView: View {
                                 Text("  :")
                                 // minute
                                 Picker("", selection: $data.userBaseDayStructure[i].endTime.minutes) {
-                                    ForEach(1 ..< 60, id: \.self) { t in
+                                    ForEach(0 ..< 60, id: \.self) { t in
                                         Text(String(format: "%02d", t))
                                     }
                                 }
@@ -100,7 +100,7 @@ struct StructureSetupView: View {
                         }, label: {
                             Text("Add class")
                         })
-                        .padding()
+                        .padding(.horizontal)
                         .tint(.green)
                         
                         Spacer()
@@ -112,11 +112,19 @@ struct StructureSetupView: View {
                         }, label: {
                             Text("Add break")
                         })
-                        .padding()
+                        .padding(.horizontal)
                         
                         Spacer()
                     }
                     .padding()
+                    
+                    // days
+                    HStack {
+                        ForEach(0 ..< 7, id: \.self) { d in
+                            Toggle(daysChars[d], isOn: $data.displayDays[d])
+                                .toggleStyle(CheckboxToggleStyle())
+                        }
+                    }
                 }
                 
                 //MARK: - bottom bar

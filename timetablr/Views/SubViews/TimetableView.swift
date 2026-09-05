@@ -37,6 +37,7 @@ struct TimetableView: View {
                     }()
                     
                     Button {
+                        // expand to view more info
                         
                     } label: {
                         HStack {
@@ -47,7 +48,7 @@ struct TimetableView: View {
                             
                             Spacer()
                             
-                            Text("\(data.userBaseDayStructure[i].startTime.hours):\(data.userBaseDayStructure[i].startTime.minutes) - \(data.userBaseDayStructure[i].endTime.hours):\(data.userBaseDayStructure[i].endTime.minutes)")
+                            Text("\(data.userBaseDayStructure[i].startTime.hours):\(String(format: "%02d", data.userBaseDayStructure[i].startTime.minutes)) - \(data.userBaseDayStructure[i].endTime.hours):\(String(format: "%02d", data.userBaseDayStructure[i].endTime.minutes))")
                                 .padding()
                         }
                         .frame(height: 70)

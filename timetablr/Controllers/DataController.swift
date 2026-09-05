@@ -6,8 +6,6 @@
 //
 //  File which stores/saves/loads data
 
-// monday is 0 .. sunday is 6
-
 import Foundation
 import SwiftUI
 import Combine
@@ -44,10 +42,13 @@ public struct DaySubjects {
     var subjects: [Class]
 }
 
-/// Naming index
+/// Naming index full
 public let days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
 
-/// Controller for managing user data. Contains mutable user data.
+/// Naming index characters
+public let daysChars = ["Mo", "Tu", "We", "Th", "Fr", "Sa", "Su"]
+
+/// Controller for managing user data. Contains mutable user data. Default state is empty.
 class DataController: ObservableObject {
     //MARK: - variables
     
@@ -60,8 +61,8 @@ class DataController: ObservableObject {
     /// Array of overridden timetable structures
     @Published public var userOverrideStructures = [OverridenDayStructure]()                    // unset
     
-    /// List of days the user wishes to display. 1 - 7 based on monday - sunday
-    @Published public var displayDays: [Int] = [1,2,3,4,5,6,7]
+    /// List of days the user wishes to display. 0 - 6 based on monday - sunday
+    @Published public var displayDays = [Bool]()
     
     /// Array of days with classes for the user to attend
     @Published public var userDaySubjects = [DaySubjects]()
@@ -76,6 +77,8 @@ class DataController: ObservableObject {
     
     
     init() {
+        displayDays = [true,true,true,true,true,false,false]
+        
         // DEBUG DATA!!!! DELETE IN PRODUCTION !!!!
         
         userDaySubjects.append(DaySubjects.init(day: 0, subjects: [
