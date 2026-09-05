@@ -4,7 +4,7 @@
 //
 //  Created on 24/04/2026.
 //
-//  Contains helper functions and variables that have no other logical home
+//  Contains generic functions and variables
 
 import Foundation
 

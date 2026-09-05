@@ -87,7 +87,7 @@ struct ContentView: View {
                             ScrollView(.horizontal, showsIndicators: false) {
                                 LazyHStack(spacing: 10) {
                                     ForEach(0 ..< data.displayDays.count, id: \.self) { i in
-                                        let day = data.days[i]
+                                        let day = days[i]
                                         
                                         Text(day)
                                             .font(.largeTitle)

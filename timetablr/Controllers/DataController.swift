@@ -44,27 +44,36 @@ public struct DaySubjects {
     var subjects: [Class]
 }
 
-/// Controller for managing user data
+/// Naming index
+public let days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
+
+/// Controller for managing user data. Contains mutable user data.
 class DataController: ObservableObject {
     //MARK: - variables
     
     /// Array of classes that a user has.
-    @Published public var userSubjects = [Subject]()
+    @Published public var userSubjects = [Subject]()                                            // unset
     
     /// Array of periods that a user has on a day. This is the normal timetable structure
     @Published public var userBaseDayStructure = [Period]()
     
     /// Array of overridden timetable structures
-    @Published public var userOverrideStructures = [OverridenDayStructure]()
+    @Published public var userOverrideStructures = [OverridenDayStructure]()                    // unset
     
-    /// List of days the user wishes to display
-    @Published public var displayDays: [Int] = [1,2,3,4,5,6,7] // 1 - 7 based on monday - sunday
-    
-    /// Naming index
-    public let days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
+    /// List of days the user wishes to display. 1 - 7 based on monday - sunday
+    @Published public var displayDays: [Int] = [1,2,3,4,5,6,7]
     
     /// Array of days with classes for the user to attend
     @Published public var userDaySubjects = [DaySubjects]()
+    
+    
+    
+    
+    
+    
+    
+    
+    
     
     init() {
         // DEBUG DATA!!!! DELETE IN PRODUCTION !!!!
