@@ -14,27 +14,32 @@ struct InitialView: View {
     
     @StateObject var data: DataController
     @StateObject var colour: ColourController
+    @StateObject var state: StateController
     
     var body: some View {
-        VStack {
-            Text("Timetablr")
-                .font(.custom("Rubik", size: 30))
-                .fontWeight(.bold)
-            
-            Button(action: {
-                transition = true
-            }) {
-                Text("Begin Setup")
-                    .font(.custom("Inter", size: 20))
-            }
-            .padding()
-            .fullScreenCover(isPresented: $transition) {
-                StructureSetupView(data: data, colour: colour) // stage 1
+        if $state.setupComplete.wrappedValue {
+            ContentView(data: data, state: state)
+        } else {
+            VStack {
+                Text("Timetablr")
+                    .font(.custom("Rubik", size: 30))
+                    .fontWeight(.bold)
+                
+                Button(action: {
+                    transition = true
+                }) {
+                    Text("Begin Setup")
+                        .font(.custom("Inter", size: 20))
+                }
+                .padding()
+                .fullScreenCover(isPresented: $transition) {
+                    StructureSetupView(data: data, colour: colour, state: state) // stage 1
+                }
             }
         }
     }
 }
 
 #Preview {
-    InitialView(data: DataController(), colour: ColourController(data: DataController()))
+    InitialView(data: DataController(), colour: ColourController(data: DataController()), state: StateController())
 }

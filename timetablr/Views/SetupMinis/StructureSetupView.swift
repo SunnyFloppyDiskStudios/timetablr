@@ -14,6 +14,7 @@ struct StructureSetupView: View {
     
     @StateObject var data: DataController
     @StateObject var colour: ColourController
+    @StateObject var state: StateController
     
     
     @State private var lastGivenHour: Int = 8 // last given end time hour
@@ -129,7 +130,7 @@ struct StructureSetupView: View {
                 
                 //MARK: - bottom bar
                 NavigationLink {
-                    ClassSetupView(colour: colour, data: data)
+                    ClassSetupView(colour: colour, data: data, state: state)
                 } label: {
                     Text("Next")
                     Image(systemName: "chevron.right")
@@ -147,5 +148,5 @@ struct StructureSetupView: View {
 }
 
 #Preview {
-    StructureSetupView(data: DataController(), colour: ColourController(data: DataController()))
+    StructureSetupView(data: DataController(), colour: ColourController(data: DataController()), state: StateController())
 }

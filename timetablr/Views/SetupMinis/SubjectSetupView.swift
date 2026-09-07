@@ -17,6 +17,7 @@ struct ClassSetupView: View {
     
     @StateObject var colour: ColourController
     @StateObject var data: DataController
+    @StateObject var state: StateController
     
     @State private var transition: Bool = false
 
@@ -110,14 +111,15 @@ struct ClassSetupView: View {
                 
                 // next button
                 Button {
-                    transition = true 
+                    transition = true
+                    $state.setupComplete.wrappedValue = true
                 } label: {
                     Text("Next")
                     Image(systemName: "chevron.right")
                 }
                 .padding()
                 .fullScreenCover(isPresented: $transition) {
-                    ContentView(data: data) 
+                    ContentView(data: data, state: state)
                 }
             }
         }
@@ -129,5 +131,5 @@ struct ClassSetupView: View {
 }
 
 #Preview {
-    ClassSetupView(colour: ColourController(data: DataController()), data: DataController())
+    ClassSetupView(colour: ColourController(data: DataController()), data: DataController(), state: StateController())
 }

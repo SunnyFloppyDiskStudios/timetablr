@@ -12,6 +12,8 @@ import SwiftUI
 struct ContentView: View {
     @StateObject var data: DataController
     
+    @StateObject var state: StateController
+    
     @State private var scrollID: Int? = 0
     
     var body: some View {
@@ -24,7 +26,8 @@ struct ContentView: View {
                             // timetable view
                             HStack {
                                 Text("Timetablr")
-                                    .font(.largeTitle)
+                                    .font(.custom("Rubik", size: 35, relativeTo: .title))
+                                    .fontWeight(.semibold)
                                 
                                 Spacer()
                                 
@@ -32,11 +35,7 @@ struct ContentView: View {
                                 HStack {
                                     Button {
                                         // open edit settings
-                                        
-                                        
-                                        
-                                        
-                                        
+                                        $state.tTableEditMode.wrappedValue = !$state.tTableEditMode.wrappedValue
                                         
                                     } label: {
                                         Image(systemName: "slider.horizontal.3")
@@ -46,12 +45,6 @@ struct ContentView: View {
                                     
                                     NavigationLink {
                                         // open settings
-                                        
-                                        
-                                        
-                                        
-                                        
-                                        
                                         SettingsView()
                                     } label: {
                                         Image(systemName: "gear")
@@ -103,6 +96,14 @@ struct ContentView: View {
                             }
                             .scrollTargetBehavior(.viewAligned)
                             .fixedSize(horizontal: false, vertical: true)
+                            
+                            // stack containing the user's draggable set classes
+                            if $state.tTableEditMode.wrappedValue {
+                                VStack {
+                                    
+                                }
+                                .frame(height: 200)
+                            }
                         }
                         
                         .padding(.vertical)
@@ -117,5 +118,5 @@ struct ContentView: View {
 }
 
 #Preview {
-    ContentView(data: DataController())
+    ContentView(data: DataController(), state: StateController())
 }
