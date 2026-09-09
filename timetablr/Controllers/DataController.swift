@@ -19,7 +19,8 @@ public struct Period {
 }
 
 /// Defines a class that a user has, i.e. Math
-public struct Subject {
+public struct Subject: Identifiable {
+    public let id = UUID()
     var name: String
     var colour: Color
 }
@@ -59,9 +60,9 @@ class DataController: ObservableObject {
     @Published public var userBaseDayStructure = [Period]()
     
     /// Array of overridden timetable structures
-    @Published public var userOverrideStructures = [OverridenDayStructure]()                    // unset
+    @Published public var userOverrideDayStructures = [OverridenDayStructure]()                    // unset
     
-    /// List of days the user wishes to display. 0 - 6 based on monday - sunday
+    /// List of days the user wishes to display. true or false, in order of monday-sunday
     @Published public var displayDays = [Bool]()
     
     /// Array of days with classes for the user to attend
@@ -80,6 +81,12 @@ class DataController: ObservableObject {
         displayDays = [true,true,true,true,true,false,false]
         
         // DEBUG DATA!!!! DELETE IN PRODUCTION !!!!
+        
+        userSubjects.append(Subject.init(name: "mathss", colour: Color.red))
+        userSubjects.append(Subject.init(name: "englsih", colour: Color.blue))
+        userSubjects.append(Subject.init(name: "phsycis", colour: Color.green))
+        userSubjects.append(Subject.init(name: "digitech", colour: Color.yellow))
+        userSubjects.append(Subject.init(name: "art", colour: Color.purple))
         
         userDaySubjects.append(DaySubjects.init(day: 0, subjects: [
             Class.init(period: 0, subject: Subject.init(name: "Test1", colour: .red)),

@@ -16,6 +16,9 @@ struct ContentView: View {
     
     @State private var scrollID: Int? = 0
     
+    // edit mode variables
+    private var 
+    
     var body: some View {
         NavigationStack {
             VStack {
@@ -99,8 +102,20 @@ struct ContentView: View {
                             
                             // stack containing the user's draggable set classes
                             if $state.tTableEditMode.wrappedValue {
-                                VStack {
-                                    
+                                ScrollView {
+                                    LazyVGrid(columns: [GridItem(.adaptive(minimum: 100))], spacing: 10) {
+                                        ForEach($data.userSubjects) { s in
+                                            Button {
+                                                
+                                            } label: {
+                                                Text(s.name.wrappedValue)
+                                                    .padding()
+                                                    .tint(.white)
+                                                    .background(s.colour.wrappedValue)
+                                                    .cornerRadius(10)
+                                            }
+                                        }
+                                    }
                                 }
                                 .frame(height: 200)
                             }

@@ -8,6 +8,7 @@
 
 import SwiftUI
 
+/// App settings view
 struct SettingsView: View {
     var body: some View {
         Text("Settings page!")

@@ -4,9 +4,11 @@
 //
 //  Created on 16/07/2026.
 //
+//  Helper embedded view for displaying a day's timetable
 
 import SwiftUI
 
+/// Embedded timetable view
 struct TimetableView: View {
     init(data: DataController, dayInt: Int) {
         self.data = data
