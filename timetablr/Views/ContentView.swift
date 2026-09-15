@@ -17,7 +17,7 @@ struct ContentView: View {
     @State private var scrollID: Int? = 0
     
     // edit mode variables
-    @State private var selectedClass = String()
+    @State private var selectedClass: Subject?
     @State private var selectedSpace = String()
     
     var body: some View {
@@ -62,7 +62,7 @@ struct ContentView: View {
                                 HStack(spacing: 0) {
                                     ForEach(0 ..< data.displayDays.count, id: \.self) { i in
                                         if data.displayDays[i] == true {
-                                            TimetableView(data: data, dayInt: i)
+                                            TimetableView(data: data, dayInt: i, selectedClass: $selectedClass, editMode: state.tTableEditMode)
                                                 .containerRelativeFrame(.horizontal)
                                                 .scrollTransition(.animated, axis: .horizontal) { content, phase in
                                                     content
@@ -107,14 +107,14 @@ struct ContentView: View {
                                     LazyVGrid(columns: [GridItem(.adaptive(minimum: 100))], spacing: 10) {
                                         ForEach($data.userSubjects) { s in
                                             Button {
-                                                selectedClass = s.name.wrappedValue
+                                                selectedClass = s.wrappedValue
                                             } label: {
                                                 Text(s.name.wrappedValue)
                                                     .padding()
                                                     .tint(.white)
                                                     .background(s.colour.wrappedValue)
                                                     .cornerRadius(10)
-                                                    .fontWeight(selectedClass == s.name.wrappedValue ? .heavy : .regular)
+                                                    .fontWeight(selectedClass?.name == s.name.wrappedValue ? .heavy : .regular)
                                             }
                                         }
                                     }

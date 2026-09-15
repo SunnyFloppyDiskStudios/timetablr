@@ -10,15 +10,20 @@ import SwiftUI
 
 /// Embedded timetable view
 struct TimetableView: View {
-    init(data: DataController, dayInt: Int) {
-        self.data = data
-        self.dayInt = dayInt
-        print("TIMETABLE CREATED:", dayInt)
-    }
-    
     @ObservedObject var data: DataController
     
     var dayInt: Int
+    
+    @Binding var selectedClass: Subject?
+    var editMode: Bool
+    
+    init(data: DataController, dayInt: Int, selectedClass: Binding<Subject?>, editMode: Bool) {
+        self.data = data
+        self.dayInt = dayInt
+        self.editMode = editMode
+        self._selectedClass = selectedClass
+        print("TIMETABLE CREATED:", dayInt)
+    }
     
     var body: some View {
         ScrollView {
@@ -39,7 +44,17 @@ struct TimetableView: View {
                     }()
                     
                     Button {
-                        // expand to view more info
+                        if editMode, let selectedClass {
+                            if let dayIndex = data.userDaySubjects.firstIndex(where: { $0.day == dayInt }) {
+                                if let classIndex = data.userDaySubjects[dayIndex].subjects.firstIndex(where: { $0.period == i }) {
+                                    data.userDaySubjects[dayIndex].subjects[classIndex].subject = selectedClass
+                                } else {
+                                    data.userDaySubjects[dayIndex].subjects.append(Class(period: i, subject: selectedClass))
+                                }
+                            }
+                        } else {
+                            // expand to view more info
+                        }
                         
                     } label: {
                         HStack {
@@ -68,5 +83,7 @@ struct TimetableView: View {
 }
 
 #Preview {
-    TimetableView(data: DataController(), dayInt: 0)
+    @Previewable @State var selectedClass: Subject? = Optional(Subject(name: "blankeditpreview", colour: Color.black))
+    
+    TimetableView(data: DataController(), dayInt: 0, selectedClass: $selectedClass, editMode: false)
 }
