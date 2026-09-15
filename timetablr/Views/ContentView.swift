@@ -17,7 +17,8 @@ struct ContentView: View {
     @State private var scrollID: Int? = 0
     
     // edit mode variables
-    private var 
+    @State private var selectedClass = String()
+    @State private var selectedSpace = String()
     
     var body: some View {
         NavigationStack {
@@ -106,13 +107,14 @@ struct ContentView: View {
                                     LazyVGrid(columns: [GridItem(.adaptive(minimum: 100))], spacing: 10) {
                                         ForEach($data.userSubjects) { s in
                                             Button {
-                                                
+                                                selectedClass = s.name.wrappedValue
                                             } label: {
                                                 Text(s.name.wrappedValue)
                                                     .padding()
                                                     .tint(.white)
                                                     .background(s.colour.wrappedValue)
                                                     .cornerRadius(10)
+                                                    .fontWeight(selectedClass == s.name.wrappedValue ? .heavy : .regular)
                                             }
                                         }
                                     }
