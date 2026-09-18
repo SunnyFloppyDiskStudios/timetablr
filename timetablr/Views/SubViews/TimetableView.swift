@@ -51,11 +51,13 @@ struct TimetableView: View {
                                 } else {
                                     data.userDaySubjects[dayIndex].subjects.append(Class(period: i, subject: selectedClass))
                                 }
+                            } else {
+                                data.userDaySubjects.append(DaySubjects(day: dayInt,subjects: [ Class(period: i, subject: selectedClass) ]))
                             }
                         } else {
                             // expand to view more info
+                            
                         }
-                        
                     } label: {
                         HStack {
                             Text(className)
