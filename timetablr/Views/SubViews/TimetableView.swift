@@ -31,11 +31,7 @@ struct TimetableView: View {
                 ForEach(0 ..< data.userBaseDayStructure.count, id: \.self) { i in
                     let isPeriod = data.userBaseDayStructure[i].isPeriod
                     
-                    let relevantSubject = data.userDaySubjects
-                        .first(where: { $0.day == dayInt })?
-                        .subjects
-                        .first(where: { $0.period == i })?
-                        .subject
+                    let relevantSubject = data.userDaySubjects.first(where: { $0.day == dayInt })?.subjects.first(where: { $0.period == i })?.subject
 
                     let className: String = {
                         if !isPeriod { return "Break" }
@@ -47,11 +43,14 @@ struct TimetableView: View {
                         if editMode, let selectedClass {
                             if let dayIndex = data.userDaySubjects.firstIndex(where: { $0.day == dayInt }) {
                                 if let classIndex = data.userDaySubjects[dayIndex].subjects.firstIndex(where: { $0.period == i }) {
+                                    // assuming day data exists... set the class
                                     data.userDaySubjects[dayIndex].subjects[classIndex].subject = selectedClass
                                 } else {
+                                    // if for some reason the slot doesn't exist
                                     data.userDaySubjects[dayIndex].subjects.append(Class(period: i, subject: selectedClass))
                                 }
                             } else {
+                                // create day data if non existant
                                 data.userDaySubjects.append(DaySubjects(day: dayInt,subjects: [ Class(period: i, subject: selectedClass) ]))
                             }
                         } else {
