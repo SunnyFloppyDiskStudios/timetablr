@@ -32,29 +32,35 @@ struct ColourPopover: View {
             Spacer()
             // colour selection space
             
-            Text(">>>>>>>>>><<<<<<<<<<")
-                .foregroundStyle(colour.chosenColour)
+            Text("Choose a colour:")
+                .font(.custom("Rubik", size: 30, relativeTo: .title))
+                .fontWeight(.bold)
+                .multilineTextAlignment(.center)
+                .padding()
+                
             
-            Button {
-                colour.setColour(.blue)
-            } label: {
-                Text("blue")
-                    .tint(.blue)
-            }
+            ColorPicker("Choose colour", selection: $colour.chosenColour)
+                .labelsHidden()
+                .scaleEffect(2)
+                .padding()
             
-            Button {
-                colour.setColour(.green)
-            } label: {
-                Text("green")
-                    .tint(.green)
+            HStack {
+                Text("Example")
+                    .padding()
+                    .fontWeight(.bold)
+                    .font(.system(size: 30))
+                
+                Spacer()
+                
+                Text("8:45 - 9:45")
+                    .padding()
             }
-            
-            Button {
-                colour.setColour(.red)
-            } label: {
-                Text("red")
-                    .tint(.red)
-            }
+            .frame(height: 70)
+            .background($colour.chosenColour.wrappedValue)
+            .cornerRadius(15)
+            .foregroundStyle(.inverseTextColour)
+            .padding(.vertical, 9)
+            .padding(.horizontal, 10)
             
             Spacer()
                 .onDisappear() {
