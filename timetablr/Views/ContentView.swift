@@ -141,5 +141,30 @@ struct ContentView: View {
 }
 
 #Preview {
-    ContentView(data: DataController(), state: StateController())
+    @Previewable @StateObject var data = DataController()
+        
+    ContentView(data: data, state: StateController())
+        .onAppear() {            
+            data.userSubjects.append(Subject.init(name: "mathss", colour: Color.red))
+            data.userSubjects.append(Subject.init(name: "englsih", colour: Color.blue))
+            data.userSubjects.append(Subject.init(name: "phsycis", colour: Color.green))
+            data.userSubjects.append(Subject.init(name: "digitech", colour: Color.yellow))
+            data.userSubjects.append(Subject.init(name: "art", colour: Color.purple))
+
+            data.userBaseDayStructure.append(Period.init(isPeriod: true, startTime: Time(hours: 8, minutes: 45), endTime: Time(hours: 9, minutes: 45)))
+            data.userBaseDayStructure.append(Period.init(isPeriod: true, startTime: Time(hours: 9, minutes: 45), endTime: Time(hours: 10, minutes: 45)))
+            data.userBaseDayStructure.append(Period.init(isPeriod: false, startTime: Time(hours: 10, minutes: 45), endTime: Time(hours: 11, minutes: 15)))
+            data.userBaseDayStructure.append(Period.init(isPeriod: true, startTime: Time(hours: 11, minutes: 15), endTime: Time(hours: 12, minutes: 15)))
+            data.userBaseDayStructure.append(Period.init(isPeriod: true, startTime: Time(hours: 12, minutes: 15), endTime: Time(hours: 13, minutes: 15)))
+            data.userBaseDayStructure.append(Period.init(isPeriod: false, startTime: Time(hours: 13, minutes: 15), endTime: Time(hours: 14, minutes: 00)))
+            data.userBaseDayStructure.append(Period.init(isPeriod: true, startTime: Time(hours: 14, minutes: 30), endTime: Time(hours: 15, minutes: 30)))
+
+            data.userDaySubjects.append(DaySubjects(day: 0, subjects: [
+                Class(periodID: data.userBaseDayStructure[0].id, subject: Subject(name: "Test1", colour: .red)),
+                Class(periodID: data.userBaseDayStructure[1].id, subject: Subject(name: "Test2", colour: .blue)),
+                Class(periodID: data.userBaseDayStructure[3].id, subject: Subject(name: "Test3", colour: .green)),
+                Class(periodID: data.userBaseDayStructure[4].id, subject: Subject(name: "Test4", colour: .red)),
+                Class(periodID: data.userBaseDayStructure[6].id, subject: Subject(name: "Test5", colour: .yellow))
+            ]))
+        }
 }

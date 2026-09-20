@@ -196,38 +196,5 @@ class DataController: ObservableObject {
             .dropFirst()
             .sink { [weak self] _ in self?.save() }
             .store(in: &cancellables)
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        // MARK: - DEBUG DATA!!!! DELETE IN PRODUCTION !!!!
-        
-//        userSubjects.append(Subject.init(name: "mathss", colour: Color.red))
-//        userSubjects.append(Subject.init(name: "englsih", colour: Color.blue))
-//        userSubjects.append(Subject.init(name: "phsycis", colour: Color.green))
-//        userSubjects.append(Subject.init(name: "digitech", colour: Color.yellow))
-//        userSubjects.append(Subject.init(name: "art", colour: Color.purple))
-//        
-//        userBaseDayStructure.append(Period.init(isPeriod: true, startTime: Time(hours: 8, minutes: 45), endTime: Time(hours: 9, minutes: 45)))
-//        userBaseDayStructure.append(Period.init(isPeriod: true, startTime: Time(hours: 9, minutes: 45), endTime: Time(hours: 10, minutes: 45)))
-//        userBaseDayStructure.append(Period.init(isPeriod: false, startTime: Time(hours: 10, minutes: 45), endTime: Time(hours: 11, minutes: 15)))
-//        userBaseDayStructure.append(Period.init(isPeriod: true, startTime: Time(hours: 11, minutes: 15), endTime: Time(hours: 12, minutes: 15)))
-//        userBaseDayStructure.append(Period.init(isPeriod: true, startTime: Time(hours: 12, minutes: 15), endTime: Time(hours: 13, minutes: 15)))
-//        userBaseDayStructure.append(Period.init(isPeriod: false, startTime: Time(hours: 13, minutes: 15), endTime: Time(hours: 14, minutes: 00)))
-//        userBaseDayStructure.append(Period.init(isPeriod: true, startTime: Time(hours: 14, minutes: 30), endTime: Time(hours: 15, minutes: 30)))
-//        
-//        userDaySubjects.append(DaySubjects(day: 0, subjects: [
-//            Class(periodID: userBaseDayStructure[0].id, subject: Subject(name: "Test1", colour: .red)),
-//            Class(periodID: userBaseDayStructure[1].id, subject: Subject(name: "Test2", colour: .blue)),
-//            Class(periodID: userBaseDayStructure[3].id, subject: Subject(name: "Test3", colour: .green)),
-//            Class(periodID: userBaseDayStructure[4].id, subject: Subject(name: "Test4", colour: .red)),
-//            Class(periodID: userBaseDayStructure[6].id, subject: Subject(name: "Test5", colour: .yellow))
-//        ]))
     }
 }

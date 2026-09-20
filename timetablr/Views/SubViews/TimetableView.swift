@@ -42,7 +42,7 @@ struct TimetableView: View {
                     }()
                     
                     Button {
-                        if editMode, let selectedClass {
+                        if editMode && isPeriod, let selectedClass {
                             if let dayIndex = data.userDaySubjects.firstIndex(where: { $0.day == dayInt }) {
                                 if let classIndex = data.userDaySubjects[dayIndex].subjects.firstIndex(where: { $0.periodID == periodID }) {
                                     // assuming day data exists, set the class
