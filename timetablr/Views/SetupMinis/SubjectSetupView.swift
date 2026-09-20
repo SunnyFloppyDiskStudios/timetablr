@@ -129,6 +129,8 @@ struct SubjectSetupView: View {
         }
     }
     
+    /// Deletes an item in an array.
+    /// - Parameter pos: The position to remove the item from. (IndexSet)
     func deleteItem(atIndex pos: IndexSet) {
         data.userSubjects.remove(atOffsets: pos)
     }

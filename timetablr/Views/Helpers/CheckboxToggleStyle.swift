@@ -11,6 +11,10 @@ import SwiftUI
 
 /// Defines a checkbox ToggleStyle, similar to the .checkbox modifier in macOS SwiftUI.
 struct CheckboxToggleStyle: ToggleStyle {
+    
+    /// Makes a toggle body.
+    /// - Parameter configuration: The required properties of the toggle instance. (ToggleStyleConfiguration (alias: Configuration))
+    /// - Returns: A view containing the toggle. (View)
     func makeBody(configuration: Configuration) -> some View {
         Button {
             configuration.isOn.toggle()
