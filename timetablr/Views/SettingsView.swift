@@ -59,7 +59,7 @@ struct SettingsView: View {
                     .multilineTextAlignment(.leading)
                     .padding(.horizontal)
                 
-                Text("Weekly Cycle")
+                Text("Week Cycles")
                     .font(.largeTitle)
                     .padding()
                 
@@ -84,13 +84,13 @@ struct SettingsView: View {
                 .padding(.horizontal)
                 
                 HStack {
-                    Text("Current Week:  \($data.currentCycle.wrappedValue)")
+                    Text("Current Week:  \($data.currentCycle.wrappedValue + 1)")
                     
                     Spacer()
                     
                     Picker("2", selection: $data.currentCycle) {
                         ForEach(0 ..< data.numberOfCycles, id: \.self) { t in
-                            Text("\(t)")
+                            Text("\(t + 1)")
                         }
                     }
                     .onChange(of: data.currentCycle) {
