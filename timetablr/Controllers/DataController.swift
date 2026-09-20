@@ -14,6 +14,7 @@ import Combine
 
 /// Some class or break in a timetable day. Used in structures and classes will conform to these periods.
 public struct Period {
+    public let id = UUID()
     var isPeriod: Bool // false = break, true = period
     var startTime: Time
     var endTime: Time
@@ -28,7 +29,7 @@ public struct Subject: Identifiable {
 
 /// Defines a lesson with relevant information
 public struct Class {
-    var period: Int
+    var periodID: UUID
     var subject: Subject
 }
 
@@ -89,14 +90,6 @@ class DataController: ObservableObject {
         userSubjects.append(Subject.init(name: "digitech", colour: Color.yellow))
         userSubjects.append(Subject.init(name: "art", colour: Color.purple))
         
-        userDaySubjects.append(DaySubjects.init(day: 0, subjects: [
-            Class.init(period: 0, subject: Subject.init(name: "Test1", colour: .red)),
-            Class.init(period: 1, subject: Subject.init(name: "Test2", colour: .blue)),
-            Class.init(period: 3, subject: Subject.init(name: "Test3", colour: .green)),
-            Class.init(period: 4, subject: Subject.init(name: "Test4", colour: .red)),
-            Class.init(period: 6, subject: Subject.init(name: "Test5", colour: .yellow)),
-        ]))
-        
         userBaseDayStructure.append(Period.init(isPeriod: true, startTime: Time(hours: 8, minutes: 45), endTime: Time(hours: 9, minutes: 45)))
         userBaseDayStructure.append(Period.init(isPeriod: true, startTime: Time(hours: 9, minutes: 45), endTime: Time(hours: 10, minutes: 45)))
         userBaseDayStructure.append(Period.init(isPeriod: false, startTime: Time(hours: 10, minutes: 45), endTime: Time(hours: 11, minutes: 15)))
@@ -104,5 +97,13 @@ class DataController: ObservableObject {
         userBaseDayStructure.append(Period.init(isPeriod: true, startTime: Time(hours: 12, minutes: 15), endTime: Time(hours: 13, minutes: 15)))
         userBaseDayStructure.append(Period.init(isPeriod: false, startTime: Time(hours: 13, minutes: 15), endTime: Time(hours: 14, minutes: 00)))
         userBaseDayStructure.append(Period.init(isPeriod: true, startTime: Time(hours: 14, minutes: 30), endTime: Time(hours: 15, minutes: 30)))
+        
+        userDaySubjects.append(DaySubjects(day: 0, subjects: [
+            Class(periodID: userBaseDayStructure[0].id, subject: Subject(name: "Test1", colour: .red)),
+            Class(periodID: userBaseDayStructure[1].id, subject: Subject(name: "Test2", colour: .blue)),
+            Class(periodID: userBaseDayStructure[3].id, subject: Subject(name: "Test3", colour: .green)),
+            Class(periodID: userBaseDayStructure[4].id, subject: Subject(name: "Test4", colour: .red)),
+            Class(periodID: userBaseDayStructure[6].id, subject: Subject(name: "Test5", colour: .yellow))
+        ]))
     }
 }
