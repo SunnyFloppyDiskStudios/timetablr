@@ -17,12 +17,13 @@ struct TimetableView: View {
     @Binding var selectedClass: Subject?
     var editMode: Bool
     
+    // needs initialisation to properly access parent level data (ContentView)
     init(data: DataController, dayInt: Int, selectedClass: Binding<Subject?>, editMode: Bool) {
         self.data = data
         self.dayInt = dayInt
         self.editMode = editMode
         self._selectedClass = selectedClass
-        print("TIMETABLE CREATED:", dayInt)
+//        print("TIMETABLE CREATED:", dayInt)
     }
     
     var body: some View {
@@ -43,7 +44,7 @@ struct TimetableView: View {
                         if editMode, let selectedClass {
                             if let dayIndex = data.userDaySubjects.firstIndex(where: { $0.day == dayInt }) {
                                 if let classIndex = data.userDaySubjects[dayIndex].subjects.firstIndex(where: { $0.period == i }) {
-                                    // assuming day data exists... set the class
+                                    // assuming day data exists, set the class
                                     data.userDaySubjects[dayIndex].subjects[classIndex].subject = selectedClass
                                 } else {
                                     // if for some reason the slot doesn't exist

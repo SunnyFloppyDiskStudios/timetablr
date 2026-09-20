@@ -9,7 +9,7 @@
 import Foundation
 import SwiftUI
 
-/// Defines a checkbox style toggle similar to .checkbox on macOS.
+/// Defines a checkbox ToggleStyle, similar to the .checkbox modifier in macOS SwiftUI.
 struct CheckboxToggleStyle: ToggleStyle {
     func makeBody(configuration: Configuration) -> some View {
         Button {

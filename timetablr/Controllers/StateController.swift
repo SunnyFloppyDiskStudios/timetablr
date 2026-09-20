@@ -11,13 +11,15 @@ import Combine
 import SwiftUI
 
 class StateController: ObservableObject {
+    // MARK: - variables
+    
     /// Variable to control store whether the user has finished the setup
     @Published var setupComplete: Bool
     
     /// Variable to control whether the user is editing their timetable
     @Published var tTableEditMode: Bool
     
-    
+    // MARK: - init
     init() {
         tTableEditMode = false
         setupComplete = false

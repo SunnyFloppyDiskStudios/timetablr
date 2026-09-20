@@ -27,7 +27,9 @@ struct ContentView: View {
                     ZStack(alignment: .topTrailing) {
                         // nav bar (day bar)
                         VStack {
-                            // timetable view
+                            // MARK: -  top bar
+                            
+                            // navigation area
                             HStack {
                                 Text("Timetablr")
                                     .font(.custom("Rubik", size: 35, relativeTo: .title))
@@ -49,7 +51,7 @@ struct ContentView: View {
                                     
                                     NavigationLink {
                                         // open settings
-                                        SettingsView()
+                                        SettingsView(data: data, state: state, colour: ColourController.init(data: data))
                                     } label: {
                                         Image(systemName: "gear")
                                             .font(.system(size: 30))
@@ -57,6 +59,8 @@ struct ContentView: View {
                                 }
                                 .padding(.horizontal)
                             }
+                            
+                            // MARK: - timetable view
                             
                             ScrollView(.horizontal, showsIndicators: false) {
                                 HStack(spacing: 0) {
@@ -82,6 +86,8 @@ struct ContentView: View {
                             .scrollTargetBehavior(.paging)
                             .scrollPosition(id: $scrollID)
                             
+                            // MARK: - bottom bar
+                            
                             // monday to friday view
                             ScrollView(.horizontal, showsIndicators: false) {
                                 LazyHStack(spacing: 10) {
@@ -101,6 +107,7 @@ struct ContentView: View {
                             .scrollTargetBehavior(.viewAligned)
                             .fixedSize(horizontal: false, vertical: true)
                             
+                            // MARK: - edit mode
                             // stack containing the user's draggable set classes
                             if $state.tTableEditMode.wrappedValue {
                                 ScrollView {
@@ -122,7 +129,6 @@ struct ContentView: View {
                                 .frame(height: 200)
                             }
                         }
-                        
                         .padding(.vertical)
                         
                         Spacer()

@@ -8,13 +8,15 @@
 
 import Foundation
 
-//MARK: - variables
+//MARK: - structs
+
 public struct Time {
     var hours: Int
     var minutes: Int
 }
 
 //MARK: - functions
+
 /// Convert string Date to Date() type (mainly for debugging)
 ///
 /// Parameter dateString: An object of type Date that was parsed into a string.

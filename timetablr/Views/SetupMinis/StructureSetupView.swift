@@ -16,7 +16,6 @@ struct StructureSetupView: View {
     @StateObject var colour: ColourController
     @StateObject var state: StateController
     
-    
     @State private var lastGivenHour: Int = 8 // last given end time hour
     @State private var lastGivenMinute: Int = 30 // last given end time minute
     
@@ -36,6 +35,7 @@ struct StructureSetupView: View {
                 Spacer()
                 
                 //MARK: - interactive space
+                
                 VStack {
                     Spacer()
                     // structure
@@ -129,13 +129,16 @@ struct StructureSetupView: View {
                 }
                 
                 //MARK: - bottom bar
-                NavigationLink {
-                    ClassSetupView(colour: colour, data: data, state: state)
-                } label: {
-                    Text("Next")
-                    Image(systemName: "chevron.right")
+                
+                if (!$state.setupComplete.wrappedValue) {
+                    NavigationLink {
+                        SubjectSetupView(colour: colour, data: data, state: state)
+                    } label: {
+                        Text("Next")
+                        Image(systemName: "chevron.right")
+                    }
+                    .padding()
                 }
-                .padding()
             }
         }
     }

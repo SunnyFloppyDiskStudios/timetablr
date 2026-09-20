@@ -12,6 +12,8 @@ import SwiftUI
 
 /// Manages timetable colours for classes.
 class ColourController: ObservableObject {
+    // MARK: - variables
+    
     // access shared data
     var data: DataController
     
@@ -28,7 +30,8 @@ class ColourController: ObservableObject {
     @Published var blankTarget: Subject = Subject.init(name: "", colour: Color.red)
     
     
-    // functions
+    // MARK: - functions
+    
     /// Choose a subject to set the colour of
     ///
     /// Parameter index: Index of class in an array of which the colour is being changed.

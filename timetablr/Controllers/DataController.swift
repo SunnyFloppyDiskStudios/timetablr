@@ -11,6 +11,7 @@ import SwiftUI
 import Combine
 
 //MARK: - structs
+
 /// Some class or break in a timetable day. Used in structures and classes will conform to these periods.
 public struct Period {
     var isPeriod: Bool // false = break, true = period
@@ -76,11 +77,11 @@ class DataController: ObservableObject {
     
     
     
-    
+    // MARK: - init
     init() {
         displayDays = [true,true,true,true,true,false,false]
         
-        // DEBUG DATA!!!! DELETE IN PRODUCTION !!!!
+        // MARK: - DEBUG DATA!!!! DELETE IN PRODUCTION !!!!
         
         userSubjects.append(Subject.init(name: "mathss", colour: Color.red))
         userSubjects.append(Subject.init(name: "englsih", colour: Color.blue))

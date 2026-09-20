@@ -1,5 +1,5 @@
 //
-//  ClassSetupView.swift
+//  SubjectSetupView.swift
 //  timetablr
 //
 //  Created on 22/04/2026.
@@ -9,7 +9,7 @@
 import SwiftUI
 
 /// Mini setup view for adding the subject classes a user will have
-struct ClassSetupView: View {
+struct SubjectSetupView: View {
     @State private var className: String = ""
     @FocusState private var classFieldIsFocused: Bool
     
@@ -36,7 +36,8 @@ struct ClassSetupView: View {
                 
                 Spacer()
                 
-                // interactive space
+                // MARK: - interactive space
+                
                 VStack {
                     Spacer()
                     
@@ -109,17 +110,20 @@ struct ClassSetupView: View {
                 }
                 
                 
-                // next button
-                Button {
-                    transition = true
-                    $state.setupComplete.wrappedValue = true
-                } label: {
-                    Text("Next")
-                    Image(systemName: "chevron.right")
-                }
-                .padding()
-                .fullScreenCover(isPresented: $transition) {
-                    ContentView(data: data, state: state)
+                // MARK: - next button / bottom bar
+                
+                if (!$state.setupComplete.wrappedValue) {
+                    Button {
+                        transition = true
+                        $state.setupComplete.wrappedValue = true
+                    } label: {
+                        Text("Next")
+                        Image(systemName: "chevron.right")
+                    }
+                    .padding()
+                    .fullScreenCover(isPresented: $transition) {
+                        ContentView(data: data, state: state)
+                    }
                 }
             }
         }
@@ -131,5 +135,5 @@ struct ClassSetupView: View {
 }
 
 #Preview {
-    ClassSetupView(colour: ColourController(data: DataController()), data: DataController(), state: StateController())
+    SubjectSetupView(colour: ColourController(data: DataController()), data: DataController(), state: StateController())
 }

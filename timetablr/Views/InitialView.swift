@@ -25,9 +25,9 @@ struct InitialView: View {
                     .font(.custom("Rubik", size: 30))
                     .fontWeight(.bold)
                 
-                Button(action: {
+                Button {
                     transition = true
-                }) {
+                } label: {
                     Text("Begin Setup")
                         .font(.custom("Inter", size: 20))
                 }
