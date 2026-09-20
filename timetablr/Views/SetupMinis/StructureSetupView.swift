@@ -30,7 +30,7 @@ struct StructureSetupView: View {
                     .multilineTextAlignment(.center)
                     .padding()
                 
-                Text("Set up a layout for the structure of your days. You can set overrides later. Uses 24 hour time.")
+                Text("Set up the structure of your days. You can set day overrides later. Uses 24 hour time.")
                     .padding()
                 
                 Spacer()
