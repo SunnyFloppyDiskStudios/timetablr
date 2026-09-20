@@ -83,6 +83,7 @@ public struct OverridenDayStructure: Codable {
 
 /// The subjects a user has in a day, in order of when they occur
 public struct DaySubjects: Codable {
+    var cycle: Int
     var day: Int
     var subjects: [Class]
 }
@@ -174,8 +175,8 @@ class DataController: ObservableObject {
         // default state
         displayDays = [true,true,true,true,true,false,false]
         
-        numberOfCycles = 5
-        currentCycle = 5
+        numberOfCycles = 2
+        currentCycle = 1
         
         // load save data
         
@@ -215,5 +216,8 @@ class DataController: ObservableObject {
             .dropFirst()
             .sink { [weak self] _ in DispatchQueue.main.async { self?.save() } } // needs to be deferred to fix @Published quirk, mainly needed here but applicable to all
             .store(in: &cancellables)
+        
+        
+//        resetApp()
     }
 }

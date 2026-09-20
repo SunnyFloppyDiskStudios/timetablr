@@ -33,7 +33,7 @@ struct TimetableView: View {
                     let isPeriod = data.userBaseDayStructure[i].isPeriod
                     
                     let periodID = data.userBaseDayStructure[i].id
-                    let relevantSubject = data.userDaySubjects.first(where: { $0.day == dayInt })?.subjects.first(where: { $0.periodID == periodID })?.subject
+                    let relevantSubject = data.userDaySubjects.first(where: { $0.cycle == data.currentCycle && $0.day == dayInt })?.subjects.first(where: { $0.periodID == periodID })?.subject
                     
                     let className: String = {
                         if !isPeriod { return "Break" }
@@ -43,7 +43,7 @@ struct TimetableView: View {
                     
                     Button {
                         if editMode && isPeriod, let selectedClass {
-                            if let dayIndex = data.userDaySubjects.firstIndex(where: { $0.day == dayInt }) {
+                            if let dayIndex = data.userDaySubjects.firstIndex(where: { $0.cycle == data.currentCycle && $0.day == dayInt }) {
                                 if let classIndex = data.userDaySubjects[dayIndex].subjects.firstIndex(where: { $0.periodID == periodID }) {
                                     // assuming day data exists, set the class
                                     data.userDaySubjects[dayIndex].subjects[classIndex].subject = selectedClass
@@ -53,7 +53,7 @@ struct TimetableView: View {
                                 }
                             } else {
                                 // create day data if non existant
-                                data.userDaySubjects.append(DaySubjects(day: dayInt,subjects: [ Class(periodID: periodID, subject: selectedClass) ]))
+                                data.userDaySubjects.append(DaySubjects(cycle: data.currentCycle, day: dayInt, subjects: [Class(periodID: periodID, subject: selectedClass)]))
                             }
                         } else {
                             // expand to view more info

@@ -39,11 +39,16 @@ struct ContentView: View {
                                 
                                 // toolbar
                                 HStack {
-                                    Button {
-                                        // dropdown toggle between week A,B,C, etc..
-                                        
+                                    Menu {
+                                        ForEach(1...data.numberOfCycles, id: \.self) { cycle in
+                                            Button {
+                                                data.currentCycle = cycle
+                                            } label: {
+                                                Text("Week \(String(UnicodeScalar(64 + cycle)!))")
+                                            }
+                                        }
                                     } label: {
-                                        Text("A")
+                                        Text(String(UnicodeScalar(64 + data.currentCycle)!))
                                             .font(.custom("Rubik", size: 35, relativeTo: .title))
                                             .fontWeight(.semibold)
                                     }
@@ -169,7 +174,7 @@ struct ContentView: View {
             data.userBaseDayStructure.append(Period.init(isPeriod: false, startTime: Time(hours: 13, minutes: 15), endTime: Time(hours: 14, minutes: 00)))
             data.userBaseDayStructure.append(Period.init(isPeriod: true, startTime: Time(hours: 14, minutes: 30), endTime: Time(hours: 15, minutes: 30)))
 
-            data.userDaySubjects.append(DaySubjects(day: 0, subjects: [
+            data.userDaySubjects.append(DaySubjects(cycle: 1, day: 0, subjects: [
                 Class(periodID: data.userBaseDayStructure[0].id, subject: Subject(name: "Test1", colour: .red)),
                 Class(periodID: data.userBaseDayStructure[1].id, subject: Subject(name: "Test2", colour: .blue)),
                 Class(periodID: data.userBaseDayStructure[3].id, subject: Subject(name: "Test3", colour: .green)),
