@@ -117,6 +117,9 @@ class DataController: ObservableObject {
     /// The date which the automatic cycling system last cycled at
     @Published public var lastCycleDate: Date?
     
+    /// Accessibility setting to see if users don't want as many animations
+    @Published public var reduceAnimations: Bool
+    
     // MARK: - save data management
     // note, this code has to be here because it needs to access above variables. Otherwise it would normally get it's own helper file.
     
@@ -132,6 +135,7 @@ class DataController: ObservableObject {
         var numberOfCycles: Int
         var currentCycle: Int
         var lastCycleDate: Date?
+        var reduceAnimations: Bool
     }
     
     /// Saves data into JSON format
@@ -144,7 +148,8 @@ class DataController: ObservableObject {
             userDaySubjects: userDaySubjects,
             numberOfCycles: numberOfCycles,
             currentCycle: currentCycle,
-            lastCycleDate: lastCycleDate
+            lastCycleDate: lastCycleDate,
+            reduceAnimations: reduceAnimations
         )
 
         do {
@@ -172,6 +177,7 @@ class DataController: ObservableObject {
             numberOfCycles = savedData.numberOfCycles
             currentCycle = savedData.currentCycle
             lastCycleDate = savedData.lastCycleDate
+            reduceAnimations = savedData.reduceAnimations
             
         } catch {
             print("No saved data found: \(error)")
@@ -213,6 +219,8 @@ class DataController: ObservableObject {
         
         lastCycleDate = nil
         
+        reduceAnimations = false
+        
         // load save data
         
         load()
@@ -253,6 +261,11 @@ class DataController: ObservableObject {
             .store(in: &cancellables)
         
         $lastCycleDate
+            .dropFirst()
+            .sink { [weak self] _ in DispatchQueue.main.async { self?.save() } }
+            .store(in: &cancellables)
+        
+        $reduceAnimations
             .dropFirst()
             .sink { [weak self] _ in DispatchQueue.main.async { self?.save() } }
             .store(in: &cancellables)

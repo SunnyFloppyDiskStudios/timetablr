@@ -56,7 +56,13 @@ struct ContentView: View {
                                     
                                     Button {
                                         // open edit settings
-                                        $state.tTableEditMode.wrappedValue = !$state.tTableEditMode.wrappedValue
+                                        if data.reduceAnimations {
+                                            state.tTableEditMode.toggle()
+                                        } else {
+                                            withAnimation(.easeInOut(duration: 0.3)) {
+                                                state.tTableEditMode.toggle()
+                                            }
+                                        }
                                         
                                     } label: {
                                         Image(systemName: "slider.horizontal.3")
@@ -172,6 +178,7 @@ struct ContentView: View {
                                     }
                                 }
                                 .frame(height: 200)
+                                .transition(.move(edge: .bottom))
                             }
                         }
                         .padding(.vertical)

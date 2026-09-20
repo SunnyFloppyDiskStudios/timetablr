@@ -18,7 +18,6 @@ struct SettingsView: View {
     
     @State var showReset: Bool = false
     
-    
     var body: some View {
         NavigationStack{
             VStack(alignment: .leading) {
@@ -100,6 +99,17 @@ struct SettingsView: View {
                     }
                 }
                 .padding(.horizontal)
+                
+                Text("Accessibility")
+                    .font(.largeTitle)
+                    .padding()
+                
+                HStack {
+                    Text("Reduce Animations")
+                    
+                    Toggle(isOn: $data.reduceAnimations) {}
+                }
+                .padding(.horizontal)
 
                 
                 Spacer()
@@ -113,6 +123,8 @@ struct SettingsView: View {
                     } label: {
                         Text("RESET APP")
                             .tint(.red)
+                            .bold()
+                            .padding(.horizontal)
                     }
                     .alert("Reset App", isPresented: $showReset) {
                         Button("Reset", role: .destructive) {
