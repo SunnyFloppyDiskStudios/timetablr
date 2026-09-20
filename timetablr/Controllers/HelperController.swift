@@ -46,9 +46,6 @@ public let days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Satu
 /// Naming index characters
 public let daysChars = ["Mo", "Tu", "We", "Th", "Fr", "Sa", "Su"]
 
-/// Week index characters
-public let weekChars = ["A", "B", "C", "D", "E"]
-
 // get the iOS safe save URL
 // datacontroller
 public var saveURL: URL {
