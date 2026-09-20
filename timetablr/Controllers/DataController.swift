@@ -120,6 +120,9 @@ class DataController: ObservableObject {
     /// Accessibility setting to see if users don't want as many animations
     @Published public var reduceAnimations: Bool
     
+    /// Accessibility setting to reduce haptics for people who don't want it
+    @Published public var reduceHaptics: Bool
+    
     // MARK: - save data management
     // note, this code has to be here because it needs to access above variables. Otherwise it would normally get it's own helper file.
     
@@ -136,6 +139,7 @@ class DataController: ObservableObject {
         var currentCycle: Int
         var lastCycleDate: Date?
         var reduceAnimations: Bool
+        var reduceHaptics: Bool
     }
     
     /// Saves data into JSON format
@@ -149,7 +153,8 @@ class DataController: ObservableObject {
             numberOfCycles: numberOfCycles,
             currentCycle: currentCycle,
             lastCycleDate: lastCycleDate,
-            reduceAnimations: reduceAnimations
+            reduceAnimations: reduceAnimations,
+            reduceHaptics: reduceHaptics,
         )
 
         do {
@@ -178,6 +183,7 @@ class DataController: ObservableObject {
             currentCycle = savedData.currentCycle
             lastCycleDate = savedData.lastCycleDate
             reduceAnimations = savedData.reduceAnimations
+            reduceHaptics = savedData.reduceHaptics
             
         } catch {
             print("No saved data found: \(error)")
@@ -220,6 +226,7 @@ class DataController: ObservableObject {
         lastCycleDate = nil
         
         reduceAnimations = false
+        reduceHaptics = false
         
         // load save data
         
@@ -266,6 +273,11 @@ class DataController: ObservableObject {
             .store(in: &cancellables)
         
         $reduceAnimations
+            .dropFirst()
+            .sink { [weak self] _ in DispatchQueue.main.async { self?.save() } }
+            .store(in: &cancellables)
+        
+        $reduceHaptics
             .dropFirst()
             .sink { [weak self] _ in DispatchQueue.main.async { self?.save() } }
             .store(in: &cancellables)

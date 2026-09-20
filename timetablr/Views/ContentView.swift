@@ -69,6 +69,7 @@ struct ContentView: View {
                                             .font(.system(size: 30))
                                     }
                                     .padding(.trailing)
+                                    .sensoryFeedback(.impact, trigger: state.tTableEditMode) { _, _ in !data.reduceHaptics }
                                     
                                     NavigationLink {
                                         // open settings
@@ -176,6 +177,7 @@ struct ContentView: View {
                                             }
                                         }
                                     }
+                                    .sensoryFeedback(.selection, trigger: selectedClass?.name) { _, _ in !data.reduceHaptics }
                                 }
                                 .frame(height: 200)
                                 .transition(.move(edge: .bottom))

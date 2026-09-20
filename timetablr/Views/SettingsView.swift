@@ -110,6 +110,13 @@ struct SettingsView: View {
                     Toggle(isOn: $data.reduceAnimations) {}
                 }
                 .padding(.horizontal)
+                
+                HStack {
+                    Text("Disable Haptics")
+                    
+                    Toggle(isOn: $data.reduceHaptics) {}
+                }
+                .padding(.horizontal)
 
                 
                 Spacer()
