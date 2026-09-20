@@ -26,6 +26,10 @@ struct SettingsView: View {
                     .multilineTextAlignment(.center)
                     .padding()
                 
+                Text("Setup")
+                    .font(.largeTitle)
+                    .padding()
+                
                 // enter base structure setup
                 NavigationLink {
                     StructureSetupView(data: data, colour: colour, state: state)
@@ -55,7 +59,46 @@ struct SettingsView: View {
                     .multilineTextAlignment(.leading)
                     .padding(.horizontal)
                 
+                Text("Weekly Cycle")
+                    .font(.largeTitle)
+                    .padding()
                 
+                // set the number of cycles as well as current cycle
+                Text("Equivalent to a week A,B,..,E cycle")
+                    .multilineTextAlignment(.leading)
+                    .padding(.horizontal)
+                
+                HStack {
+                    Text("Cycles:")
+                    
+                    Stepper(value: $data.numberOfCycles, in: 1...5, step: 1) {
+                        Text("\($data.numberOfCycles.wrappedValue)")
+                    }
+                    .onChange(of: data.numberOfCycles) {
+                        // fallback because sometimes current week can be more than allowed
+                        if data.currentCycle > data.numberOfCycles {
+                            data.currentCycle = data.numberOfCycles
+                        }
+                    }
+                }
+                .padding(.horizontal)
+                
+                HStack {
+                    Text("Current Week:  \($data.currentCycle.wrappedValue)")
+                    
+                    Spacer()
+                    
+                    Picker("2", selection: $data.currentCycle) {
+                        ForEach(0 ..< data.numberOfCycles, id: \.self) { t in
+                            Text("\(t)")
+                        }
+                    }
+                    .onChange(of: data.currentCycle) {
+                        print("CURRENT CYCLE CHANGED:", data.currentCycle)
+                    }
+                }
+                .padding(.horizontal)
+
                 
                 Spacer()
             }

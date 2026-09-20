@@ -87,12 +87,6 @@ public struct DaySubjects: Codable {
     var subjects: [Class]
 }
 
-/// Naming index full
-public let days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
-
-/// Naming index characters
-public let daysChars = ["Mo", "Tu", "We", "Th", "Fr", "Sa", "Su"]
-
 /// Controller for managing user data. Contains mutable user data. Default state is empty.
 class DataController: ObservableObject {
     //MARK: - variables
@@ -112,6 +106,12 @@ class DataController: ObservableObject {
     /// Array of days with classes for the user to attend
     @Published public var userDaySubjects = [DaySubjects]()
     
+    /// Integer value containing the amount of unique weeks that the user may cycle between
+    @Published public var numberOfCycles: Int
+    
+    /// Integer value mapped to current cycle
+    @Published public var currentCycle: Int
+    
     // MARK: - save data management
     // note, this code has to be here because it needs to access above variables. Otherwise it would normally get it's own helper file.
     
@@ -124,6 +124,8 @@ class DataController: ObservableObject {
         var userOverrideDayStructures: [OverridenDayStructure]
         var displayDays: [Bool]
         var userDaySubjects: [DaySubjects]
+        var numberOfCycles: Int
+        var currentCycle: Int
     }
     
     /// Saves data into JSON format
@@ -133,7 +135,9 @@ class DataController: ObservableObject {
             userBaseDayStructure: userBaseDayStructure,
             userOverrideDayStructures: userOverrideDayStructures,
             displayDays: displayDays,
-            userDaySubjects: userDaySubjects
+            userDaySubjects: userDaySubjects,
+            numberOfCycles: numberOfCycles,
+            currentCycle: currentCycle
         )
 
         do {
@@ -158,8 +162,10 @@ class DataController: ObservableObject {
             userOverrideDayStructures = savedData.userOverrideDayStructures
             displayDays = savedData.displayDays
             userDaySubjects = savedData.userDaySubjects
+            numberOfCycles = savedData.numberOfCycles
+            currentCycle = savedData.currentCycle
         } catch {
-            print("No saved data found")
+            print("No saved data found: \(error)")
         }
     }
     
@@ -168,33 +174,46 @@ class DataController: ObservableObject {
         // default state
         displayDays = [true,true,true,true,true,false,false]
         
+        numberOfCycles = 5
+        currentCycle = 5
+        
         // load save data
         
         load()
 
         $userSubjects
             .dropFirst()
-            .sink { [weak self] _ in self?.save() }
+            .sink { [weak self] _ in DispatchQueue.main.async { self?.save() } }
             .store(in: &cancellables)
 
         $userBaseDayStructure
             .dropFirst()
-            .sink { [weak self] _ in self?.save() }
+            .sink { [weak self] _ in DispatchQueue.main.async { self?.save() } }
             .store(in: &cancellables)
 
         $userOverrideDayStructures
             .dropFirst()
-            .sink { [weak self] _ in self?.save() }
+            .sink { [weak self] _ in DispatchQueue.main.async { self?.save() } }
             .store(in: &cancellables)
 
         $displayDays
             .dropFirst()
-            .sink { [weak self] _ in self?.save() }
+            .sink { [weak self] _ in DispatchQueue.main.async { self?.save() } }
             .store(in: &cancellables)
 
         $userDaySubjects
             .dropFirst()
-            .sink { [weak self] _ in self?.save() }
+            .sink { [weak self] _ in DispatchQueue.main.async { self?.save() } }
+            .store(in: &cancellables)
+        
+        $numberOfCycles
+            .dropFirst()
+            .sink { [weak self] _ in DispatchQueue.main.async { self?.save() } }
+            .store(in: &cancellables)
+        
+        $currentCycle
+            .dropFirst()
+            .sink { [weak self] _ in DispatchQueue.main.async { self?.save() } } // needs to be deferred to fix @Published quirk, mainly needed here but applicable to all
             .store(in: &cancellables)
     }
 }

@@ -32,12 +32,24 @@ public func getDateFromString(_ dateString: String) -> Date {
     
     return dateFormatter.date(from: dateString) ?? Date()
 }
+/// Resets ALL app data
+public func resetApp() {
+    try? FileManager.default.removeItem(at: saveURL)
+    try? FileManager.default.removeItem(at: setupURL)
+}
 
 //MARK: - helper variables
 
-// get the iOS safe save URL
-// sourced from Apple Swift Documentation
+/// Naming index full
+public let days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
 
+/// Naming index characters
+public let daysChars = ["Mo", "Tu", "We", "Th", "Fr", "Sa", "Su"]
+
+/// Week index characters
+public let weekChars = ["A", "B", "C", "D", "E"]
+
+// get the iOS safe save URL
 // datacontroller
 public var saveURL: URL {
     FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask)[0]

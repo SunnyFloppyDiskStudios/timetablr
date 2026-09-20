@@ -40,6 +40,16 @@ struct ContentView: View {
                                 // toolbar
                                 HStack {
                                     Button {
+                                        // dropdown toggle between week A,B,C, etc..
+                                        
+                                    } label: {
+                                        Text("A")
+                                            .font(.custom("Rubik", size: 35, relativeTo: .title))
+                                            .fontWeight(.semibold)
+                                    }
+                                    .padding(.trailing)
+                                    
+                                    Button {
                                         // open edit settings
                                         $state.tTableEditMode.wrappedValue = !$state.tTableEditMode.wrappedValue
                                         
