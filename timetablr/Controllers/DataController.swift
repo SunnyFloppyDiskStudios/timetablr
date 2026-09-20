@@ -13,34 +13,76 @@ import Combine
 //MARK: - structs
 
 /// Some class or break in a timetable day. Used in structures and classes will conform to these periods.
-public struct Period {
-    public let id = UUID()
+public struct Period: Codable {
+    public var id = UUID()
     var isPeriod: Bool // false = break, true = period
     var startTime: Time
     var endTime: Time
+    
+    init(isPeriod: Bool, startTime: Time, endTime: Time) {
+        self.id = UUID()
+        self.isPeriod = isPeriod
+        self.startTime = startTime
+        self.endTime = endTime
+    }
 }
 
 /// Defines a class that a user has, i.e. Math
-public struct Subject: Identifiable {
-    public let id = UUID()
+public struct Subject: Identifiable, Codable {
+    public var id = UUID()
     var name: String
-    var colour: Color
+    var colour: Color // does not identify as Codable
+    
+    init(name: String, colour: Color) {
+        self.id = UUID()
+        self.name = name
+        self.colour = colour
+    }
+    
+    // helpers to allow Colour to be encoded/decoded
+    // breaks down Color type into its components
+    enum CodingKeys: String, CodingKey {
+        case id, name, colour
+    }
+    
+    // function that gets called when a Subject is being initialised, decoder
+    public init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self) // the data itself
+
+        id = try container.decode(UUID.self, forKey: .id)
+        
+        name = try container.decode(String.self, forKey: .name)
+
+        let colourData = try container.decode(Data.self, forKey: .colour)
+        colour = try NSKeyedUnarchiver.unarchivedObject(ofClass: UIColor.self, from: colourData).map(Color.init) ?? .clear // turns Data object into UIColor (fallback if fail)
+    }
+    
+    // function that allows Color to be codable
+    public func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+
+        try container.encode(id, forKey: .id)
+        try container.encode(name, forKey: .name)
+
+        let colourData = try NSKeyedArchiver.archivedData(withRootObject: UIColor(colour), requiringSecureCoding: true)
+        try container.encode(colourData, forKey: .colour)
+    }
 }
 
 /// Defines a lesson with relevant information
-public struct Class {
+public struct Class: Codable {
     var periodID: UUID
     var subject: Subject
 }
 
 /// A special timetable structure that might be used on days with different timetable structures. Requires setting a specific day and list of periods.
-public struct OverridenDayStructure {
+public struct OverridenDayStructure: Codable {
     var day: Int
     var classes: [Period]
 }
 
 /// The subjects a user has in a day, in order of when they occur
-public struct DaySubjects {
+public struct DaySubjects: Codable {
     var day: Int
     var subjects: [Class]
 }
@@ -56,13 +98,13 @@ class DataController: ObservableObject {
     //MARK: - variables
     
     /// Array of classes that a user has.
-    @Published public var userSubjects = [Subject]()                                            // unset
+    @Published public var userSubjects = [Subject]()
     
     /// Array of periods that a user has on a day. This is the normal timetable structure
     @Published public var userBaseDayStructure = [Period]()
     
     /// Array of overridden timetable structures
-    @Published public var userOverrideDayStructures = [OverridenDayStructure]()                    // unset
+    @Published public var userOverrideDayStructures = [OverridenDayStructure]()
     
     /// List of days the user wishes to display. true or false, in order of monday-sunday
     @Published public var displayDays = [Bool]()
@@ -70,40 +112,122 @@ class DataController: ObservableObject {
     /// Array of days with classes for the user to attend
     @Published public var userDaySubjects = [DaySubjects]()
     
+    // MARK: - save data management
+    // note, this code has to be here because it needs to access above variables. Otherwise it would normally get it's own helper file.
     
+    private var cancellables = Set<AnyCancellable>() // stores the "subscriptions" to each data point.
+
+    /// Struct containing the data that needs to be saved from this manager
+    private struct SavedData: Codable {
+        var userSubjects: [Subject]
+        var userBaseDayStructure: [Period]
+        var userOverrideDayStructures: [OverridenDayStructure]
+        var displayDays: [Bool]
+        var userDaySubjects: [DaySubjects]
+    }
     
-    
-    
-    
-    
-    
+    /// Saves data into JSON format
+    private func save() {
+        let savedData = SavedData(
+            userSubjects: userSubjects,
+            userBaseDayStructure: userBaseDayStructure,
+            userOverrideDayStructures: userOverrideDayStructures,
+            displayDays: displayDays,
+            userDaySubjects: userDaySubjects
+        )
+
+        do {
+            let folder = saveURL.deletingLastPathComponent()
+            try FileManager.default.createDirectory(at: folder, withIntermediateDirectories: true)
+
+            let data = try JSONEncoder().encode(savedData)
+            try data.write(to: saveURL)
+        } catch {
+            print("Failed to save: \(error)")
+        }
+    }
+
+    /// Decodes JSON and loads save data when called
+    private func load() {
+        do {
+            let data = try Data(contentsOf: saveURL)
+            let savedData = try JSONDecoder().decode(SavedData.self, from: data)
+
+            userSubjects = savedData.userSubjects
+            userBaseDayStructure = savedData.userBaseDayStructure
+            userOverrideDayStructures = savedData.userOverrideDayStructures
+            displayDays = savedData.displayDays
+            userDaySubjects = savedData.userDaySubjects
+        } catch {
+            print("No saved data found")
+        }
+    }
     
     // MARK: - init
     init() {
+        // default state
         displayDays = [true,true,true,true,true,false,false]
+        
+        // load save data
+        
+        load()
+
+        $userSubjects
+            .dropFirst()
+            .sink { [weak self] _ in self?.save() }
+            .store(in: &cancellables)
+
+        $userBaseDayStructure
+            .dropFirst()
+            .sink { [weak self] _ in self?.save() }
+            .store(in: &cancellables)
+
+        $userOverrideDayStructures
+            .dropFirst()
+            .sink { [weak self] _ in self?.save() }
+            .store(in: &cancellables)
+
+        $displayDays
+            .dropFirst()
+            .sink { [weak self] _ in self?.save() }
+            .store(in: &cancellables)
+
+        $userDaySubjects
+            .dropFirst()
+            .sink { [weak self] _ in self?.save() }
+            .store(in: &cancellables)
+        
+        
+        
+        
+        
+        
+        
+        
+        
         
         // MARK: - DEBUG DATA!!!! DELETE IN PRODUCTION !!!!
         
-        userSubjects.append(Subject.init(name: "mathss", colour: Color.red))
-        userSubjects.append(Subject.init(name: "englsih", colour: Color.blue))
-        userSubjects.append(Subject.init(name: "phsycis", colour: Color.green))
-        userSubjects.append(Subject.init(name: "digitech", colour: Color.yellow))
-        userSubjects.append(Subject.init(name: "art", colour: Color.purple))
-        
-        userBaseDayStructure.append(Period.init(isPeriod: true, startTime: Time(hours: 8, minutes: 45), endTime: Time(hours: 9, minutes: 45)))
-        userBaseDayStructure.append(Period.init(isPeriod: true, startTime: Time(hours: 9, minutes: 45), endTime: Time(hours: 10, minutes: 45)))
-        userBaseDayStructure.append(Period.init(isPeriod: false, startTime: Time(hours: 10, minutes: 45), endTime: Time(hours: 11, minutes: 15)))
-        userBaseDayStructure.append(Period.init(isPeriod: true, startTime: Time(hours: 11, minutes: 15), endTime: Time(hours: 12, minutes: 15)))
-        userBaseDayStructure.append(Period.init(isPeriod: true, startTime: Time(hours: 12, minutes: 15), endTime: Time(hours: 13, minutes: 15)))
-        userBaseDayStructure.append(Period.init(isPeriod: false, startTime: Time(hours: 13, minutes: 15), endTime: Time(hours: 14, minutes: 00)))
-        userBaseDayStructure.append(Period.init(isPeriod: true, startTime: Time(hours: 14, minutes: 30), endTime: Time(hours: 15, minutes: 30)))
-        
-        userDaySubjects.append(DaySubjects(day: 0, subjects: [
-            Class(periodID: userBaseDayStructure[0].id, subject: Subject(name: "Test1", colour: .red)),
-            Class(periodID: userBaseDayStructure[1].id, subject: Subject(name: "Test2", colour: .blue)),
-            Class(periodID: userBaseDayStructure[3].id, subject: Subject(name: "Test3", colour: .green)),
-            Class(periodID: userBaseDayStructure[4].id, subject: Subject(name: "Test4", colour: .red)),
-            Class(periodID: userBaseDayStructure[6].id, subject: Subject(name: "Test5", colour: .yellow))
-        ]))
+//        userSubjects.append(Subject.init(name: "mathss", colour: Color.red))
+//        userSubjects.append(Subject.init(name: "englsih", colour: Color.blue))
+//        userSubjects.append(Subject.init(name: "phsycis", colour: Color.green))
+//        userSubjects.append(Subject.init(name: "digitech", colour: Color.yellow))
+//        userSubjects.append(Subject.init(name: "art", colour: Color.purple))
+//        
+//        userBaseDayStructure.append(Period.init(isPeriod: true, startTime: Time(hours: 8, minutes: 45), endTime: Time(hours: 9, minutes: 45)))
+//        userBaseDayStructure.append(Period.init(isPeriod: true, startTime: Time(hours: 9, minutes: 45), endTime: Time(hours: 10, minutes: 45)))
+//        userBaseDayStructure.append(Period.init(isPeriod: false, startTime: Time(hours: 10, minutes: 45), endTime: Time(hours: 11, minutes: 15)))
+//        userBaseDayStructure.append(Period.init(isPeriod: true, startTime: Time(hours: 11, minutes: 15), endTime: Time(hours: 12, minutes: 15)))
+//        userBaseDayStructure.append(Period.init(isPeriod: true, startTime: Time(hours: 12, minutes: 15), endTime: Time(hours: 13, minutes: 15)))
+//        userBaseDayStructure.append(Period.init(isPeriod: false, startTime: Time(hours: 13, minutes: 15), endTime: Time(hours: 14, minutes: 00)))
+//        userBaseDayStructure.append(Period.init(isPeriod: true, startTime: Time(hours: 14, minutes: 30), endTime: Time(hours: 15, minutes: 30)))
+//        
+//        userDaySubjects.append(DaySubjects(day: 0, subjects: [
+//            Class(periodID: userBaseDayStructure[0].id, subject: Subject(name: "Test1", colour: .red)),
+//            Class(periodID: userBaseDayStructure[1].id, subject: Subject(name: "Test2", colour: .blue)),
+//            Class(periodID: userBaseDayStructure[3].id, subject: Subject(name: "Test3", colour: .green)),
+//            Class(periodID: userBaseDayStructure[4].id, subject: Subject(name: "Test4", colour: .red)),
+//            Class(periodID: userBaseDayStructure[6].id, subject: Subject(name: "Test5", colour: .yellow))
+//        ]))
     }
 }

@@ -28,7 +28,11 @@ struct timetablrApp: App {
     
     var body: some Scene {
         WindowGroup {
-            InitialView(data: data, colour: colour, state: state)
+            if state.setupComplete {
+                ContentView(data: data, state: state)
+            } else {
+                InitialView(data: data, colour: colour, state: state)
+            }
         }
     }
 }

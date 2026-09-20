@@ -10,7 +10,7 @@ import Foundation
 
 //MARK: - structs
 
-public struct Time {
+public struct Time: Codable {
     var hours: Int
     var minutes: Int
 }
@@ -31,4 +31,21 @@ public func getDateFromString(_ dateString: String) -> Date {
     print(dateFormatter.date(from: dateString) ?? Date())
     
     return dateFormatter.date(from: dateString) ?? Date()
+}
+
+//MARK: - helper variables
+
+// get the iOS safe save URL
+// sourced from Apple Swift Documentation
+
+// datacontroller
+public var saveURL: URL {
+    FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask)[0]
+        .appendingPathComponent("timetablr.json")
+}
+
+// statecontroller
+public var setupURL: URL {
+    FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask)[0]
+        .appendingPathComponent("setupComplete")
 }
