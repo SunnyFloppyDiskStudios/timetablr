@@ -126,6 +126,17 @@ struct ContentView: View {
                             // stack containing the user's draggable set classes
                             if $state.tTableEditMode.wrappedValue {
                                 ScrollView {
+                                    Button {
+                                        selectedClass = Subject.init(name: "", colour: .secondaryBackground)
+                                    } label: {
+                                        Text("remove")
+                                            .padding()
+                                            .tint(.white)
+                                            .background(.secondaryBackground)
+                                            .cornerRadius(10)
+                                            .fontWeight(selectedClass?.name == "remove" ? .heavy : .regular)
+                                    }
+                                    
                                     LazyVGrid(columns: [GridItem(.adaptive(minimum: 100))], spacing: 10) {
                                         ForEach($data.userSubjects) { s in
                                             Button {
