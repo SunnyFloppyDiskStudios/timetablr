@@ -77,6 +77,7 @@ public struct Class: Codable {
 
 /// A special timetable structure that might be used on days with different timetable structures. Requires setting a specific day and list of periods.
 public struct OverridenDayStructure: Codable {
+    var cycle: Int
     var day: Int
     var classes: [Period]
 }

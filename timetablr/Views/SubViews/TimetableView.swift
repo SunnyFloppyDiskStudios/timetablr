@@ -27,12 +27,14 @@ struct TimetableView: View {
     }
     
     var body: some View {
+        let structure = data.userOverrideDayStructures.first(where: { $0.cycle == data.currentCycle && $0.day == dayInt })?.classes ?? data.userBaseDayStructure
+
         ScrollView {
             VStack(spacing: 0) {
-                ForEach(data.userBaseDayStructure.indices, id: \.self) { i in
-                    let isPeriod = data.userBaseDayStructure[i].isPeriod
+                ForEach(structure.indices, id: \.self) { i in
+                    let isPeriod = structure[i].isPeriod
                     
-                    let periodID = data.userBaseDayStructure[i].id
+                    let periodID = structure[i].id
                     let relevantSubject = data.userDaySubjects.first(where: { $0.cycle == data.currentCycle && $0.day == dayInt })?.subjects.first(where: { $0.periodID == periodID })?.subject
                     
                     let className: String = {
@@ -68,7 +70,7 @@ struct TimetableView: View {
                             
                             Spacer()
                             
-                            Text("\(data.userBaseDayStructure[i].startTime.hours):\(String(format: "%02d", data.userBaseDayStructure[i].startTime.minutes)) - \(data.userBaseDayStructure[i].endTime.hours):\(String(format: "%02d", data.userBaseDayStructure[i].endTime.minutes))")
+                            Text("\(structure[i].startTime.hours):\(String(format: "%02d", structure[i].startTime.minutes)) - \(structure[i].endTime.hours):\(String(format: "%02d", structure[i].endTime.minutes))")
                                 .padding()
                         }
                         .frame(height: 70)
