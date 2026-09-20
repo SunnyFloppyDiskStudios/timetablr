@@ -16,6 +16,8 @@ struct SettingsView: View {
     
     @StateObject var colour: ColourController
     
+    @State var showReset: Bool = false
+    
     
     var body: some View {
         NavigationStack{
@@ -101,6 +103,27 @@ struct SettingsView: View {
 
                 
                 Spacer()
+                
+                // reset app button
+                HStack {
+                    Spacer()
+                    
+                    Button {
+                        showReset = true
+                    } label: {
+                        Text("RESET APP")
+                            .tint(.red)
+                    }
+                    .alert("Reset App", isPresented: $showReset) {
+                        Button("Reset", role: .destructive) {
+                            resetApp()
+                            exit(0)
+                        }
+                    } message: {
+                        Text("Are you sure? You CANNOT reverse this!")
+                    }
+                }
+                .padding()
             }
             
         }
