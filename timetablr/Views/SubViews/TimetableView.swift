@@ -60,6 +60,7 @@ struct TimetableView: View {
                     } label: {
                         HStack {
                             Text(className)
+                                .foregroundStyle(.white)
                                 .padding()
                                 .fontWeight(.bold)
                                 .font(.system(size: 30))
@@ -67,6 +68,7 @@ struct TimetableView: View {
                             Spacer()
                             
                             Text("\(structure[i].startTime.hours):\(String(format: "%02d", structure[i].startTime.minutes)) - \(structure[i].endTime.hours):\(String(format: "%02d", structure[i].endTime.minutes))")
+                                .foregroundStyle(.white)
                                 .padding()
                         }
                         .frame(height: 70)
