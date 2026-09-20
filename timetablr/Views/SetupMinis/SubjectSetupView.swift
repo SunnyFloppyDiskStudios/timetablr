@@ -43,7 +43,7 @@ struct SubjectSetupView: View {
                     
                     List {
                         ForEach(data.userSubjects.indices, id: \.self) { i in
-                            Button() {
+                            Button {
                                 shouldPresentColours = true
                                 colour.startRecolouring(atIndex: i)
                             } label: {

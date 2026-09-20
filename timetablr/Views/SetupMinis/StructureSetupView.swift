@@ -92,27 +92,27 @@ struct StructureSetupView: View {
                     HStack {
                         Spacer()
                         
-                        Button(action: {
+                        Button {
                             // add class
                             periodCount += 1
                             
                             data.userBaseDayStructure.append(Period.init(isPeriod: true, startTime: Time(hours: lastGivenHour, minutes: lastGivenMinute), endTime: Time(hours: lastGivenHour + 1, minutes: lastGivenMinute)))
                             
-                        }, label: {
+                        } label: {
                             Text("Add class")
-                        })
+                        }
                         .padding(.horizontal)
                         .tint(.green)
                         
                         Spacer()
                         
-                        Button(action: {
+                        Button {
                             // add break
                             data.userBaseDayStructure.append(Period.init(isPeriod: false, startTime: Time(hours: lastGivenHour, minutes: lastGivenMinute), endTime: Time(hours: lastGivenHour + 1, minutes: lastGivenMinute)))
                             
-                        }, label: {
+                        } label: {
                             Text("Add break")
-                        })
+                        }
                         .padding(.horizontal)
                         
                         Spacer()
