@@ -44,7 +44,7 @@ struct ContentView: View {
                                             Button {
                                                 data.currentCycle = cycle
                                             } label: {
-                                                Text("Week \(String(UnicodeScalar(64 + cycle)!))")
+                                                Text("Week \(String(UnicodeScalar(64 + cycle)!))") // gets a character from A,B,C, etc.
                                             }
                                         }
                                     } label: {
@@ -181,6 +181,9 @@ struct ContentView: View {
                 }
                 .padding()
             }
+        }
+        .onAppear {
+            data.updateCycle()
         }
     }
 }

@@ -114,6 +114,9 @@ class DataController: ObservableObject {
     /// Integer value mapped to current cycle
     @Published public var currentCycle: Int
     
+    /// The date which the automatic cycling system last cycled at
+    @Published public var lastCycleDate: Date?
+    
     // MARK: - save data management
     // note, this code has to be here because it needs to access above variables. Otherwise it would normally get it's own helper file.
     
@@ -128,6 +131,7 @@ class DataController: ObservableObject {
         var userDaySubjects: [DaySubjects]
         var numberOfCycles: Int
         var currentCycle: Int
+        var lastCycleDate: Date?
     }
     
     /// Saves data into JSON format
@@ -139,7 +143,8 @@ class DataController: ObservableObject {
             displayDays: displayDays,
             userDaySubjects: userDaySubjects,
             numberOfCycles: numberOfCycles,
-            currentCycle: currentCycle
+            currentCycle: currentCycle,
+            lastCycleDate: lastCycleDate
         )
 
         do {
@@ -166,9 +171,36 @@ class DataController: ObservableObject {
             userDaySubjects = savedData.userDaySubjects
             numberOfCycles = savedData.numberOfCycles
             currentCycle = savedData.currentCycle
+            lastCycleDate = savedData.lastCycleDate
+            
         } catch {
             print("No saved data found: \(error)")
         }
+    }
+    
+    // MARK: - week cycle feature
+    /// Updates the cycle and goes between the weeks if needed
+    /// 
+    /// - Parameter date: Optional Date for testing. (Date)
+    func updateCycle(_ date: Date = Date()) {
+        let calendar = Calendar.current
+        let today = calendar.startOfDay(for: date)
+
+        guard calendar.component(.weekday, from: today) == 2 else {
+            return
+        }
+
+        if let lastCycleDate, calendar.isDate(lastCycleDate, inSameDayAs: today) {
+            return
+        }
+
+        currentCycle += 1
+
+        if currentCycle >= numberOfCycles {
+            currentCycle = 0
+        }
+
+        lastCycleDate = today
     }
     
     // MARK: - init
@@ -178,6 +210,8 @@ class DataController: ObservableObject {
         
         numberOfCycles = 2
         currentCycle = 1
+        
+        lastCycleDate = nil
         
         // load save data
         
@@ -218,6 +252,10 @@ class DataController: ObservableObject {
             .sink { [weak self] _ in DispatchQueue.main.async { self?.save() } } // needs to be deferred to fix @Published quirk, mainly needed here but applicable to all
             .store(in: &cancellables)
         
+        $lastCycleDate
+            .dropFirst()
+            .sink { [weak self] _ in DispatchQueue.main.async { self?.save() } }
+            .store(in: &cancellables)
         
 //        resetApp()
     }
