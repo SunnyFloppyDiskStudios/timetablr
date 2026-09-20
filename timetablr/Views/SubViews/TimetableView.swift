@@ -23,7 +23,6 @@ struct TimetableView: View {
         self.dayInt = dayInt
         self.editMode = editMode
         self._selectedClass = selectedClass
-//        print("TIMETABLE CREATED:", dayInt)
     }
     
     var body: some View {
@@ -57,9 +56,6 @@ struct TimetableView: View {
                                 // create day data if non existant
                                 data.userDaySubjects.append(DaySubjects(cycle: data.currentCycle, day: dayInt, subjects: [Class(periodID: periodID, subject: selectedClass)]))
                             }
-                        } else {
-                            // expand to view more info
-                            
                         }
                     } label: {
                         HStack {

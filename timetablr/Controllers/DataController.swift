@@ -10,7 +10,7 @@ import Foundation
 import SwiftUI
 import Combine
 
-//MARK: - structs
+// MARK: - structs
 
 /// Some class or break in a timetable day. Used in structures and classes will conform to these periods.
 public struct Period: Codable {
@@ -91,7 +91,7 @@ public struct DaySubjects: Codable {
 
 /// Controller for managing user data. Contains mutable user data. Default state is empty.
 class DataController: ObservableObject {
-    //MARK: - variables
+    // MARK: - variables
     
     /// Array of classes that a user has.
     @Published public var userSubjects = [Subject]()
@@ -256,7 +256,5 @@ class DataController: ObservableObject {
             .dropFirst()
             .sink { [weak self] _ in DispatchQueue.main.async { self?.save() } }
             .store(in: &cancellables)
-        
-//        resetApp()
     }
 }

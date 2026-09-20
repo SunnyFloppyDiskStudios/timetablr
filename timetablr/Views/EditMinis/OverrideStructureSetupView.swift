@@ -52,7 +52,7 @@ struct OverrideStructureSetupView: View {
                 
                 Spacer()
                 
-                //MARK: - interactive space
+                // MARK: - interactive space
                 
                 VStack {
                     Spacer()
@@ -150,7 +150,7 @@ struct OverrideStructureSetupView: View {
         }
     }
     
-    //MARK: - functions
+    // MARK: - functions
     
     /// Deletes an item in an array.
     /// - Parameter pos: The position to remove the item from. (IndexSet)

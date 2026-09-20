@@ -8,14 +8,14 @@
 
 import Foundation
 
-//MARK: - structs
+// MARK: - structs
 
 public struct Time: Codable {
     var hours: Int
     var minutes: Int
 }
 
-//MARK: - functions
+// MARK: - functions
 
 /// Convert string Date to Date() type (mainly for debugging)
 /// 
@@ -38,7 +38,7 @@ public func resetApp() {
     try? FileManager.default.removeItem(at: setupURL)
 }
 
-//MARK: - helper variables
+// MARK: - helper variables
 
 /// Naming index full
 public let days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
