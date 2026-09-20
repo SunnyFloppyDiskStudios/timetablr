@@ -42,13 +42,13 @@ struct ContentView: View {
                                     Menu {
                                         ForEach(1...data.numberOfCycles, id: \.self) { cycle in
                                             Button {
-                                                data.currentCycle = cycle
+                                                data.currentCycle = cycle - 1
                                             } label: {
-                                                Text("Week \(String(UnicodeScalar(64 + cycle)!))") // gets a character from A,B,C, etc.
+                                                Text("Week \(String(UnicodeScalar(65 + cycle - 1)!))") // gets a character from A,B,C, etc.
                                             }
                                         }
                                     } label: {
-                                        Text(String(UnicodeScalar(64 + data.currentCycle)!))
+                                        Text(String(UnicodeScalar(65 + data.currentCycle)!))
                                             .font(.custom("Rubik", size: 35, relativeTo: .title))
                                             .fontWeight(.semibold)
                                     }
@@ -207,7 +207,7 @@ struct ContentView: View {
             data.userBaseDayStructure.append(Period.init(isPeriod: false, startTime: Time(hours: 13, minutes: 15), endTime: Time(hours: 14, minutes: 00)))
             data.userBaseDayStructure.append(Period.init(isPeriod: true, startTime: Time(hours: 14, minutes: 30), endTime: Time(hours: 15, minutes: 30)))
 
-            data.userDaySubjects.append(DaySubjects(cycle: 1, day: 0, subjects: [
+            data.userDaySubjects.append(DaySubjects(cycle: 0, day: 0, subjects: [
                 Class(periodID: data.userBaseDayStructure[0].id, subject: Subject(name: "Maths", colour: .red)),
                 Class(periodID: data.userBaseDayStructure[1].id, subject: Subject(name: "English", colour: .blue)),
                 Class(periodID: data.userBaseDayStructure[3].id, subject: Subject(name: "Physics", colour: .green)),
