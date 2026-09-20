@@ -52,12 +52,12 @@ public let weekChars = ["A", "B", "C", "D", "E"]
 // get the iOS safe save URL
 // datacontroller
 public var saveURL: URL {
-    FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask)[0]
+    FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
         .appendingPathComponent("timetablr.json")
 }
 
 // statecontroller
 public var setupURL: URL {
-    FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask)[0]
+    FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
         .appendingPathComponent("setupComplete")
 }
