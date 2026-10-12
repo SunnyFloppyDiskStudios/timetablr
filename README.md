@@ -21,6 +21,10 @@
 ## Why even make a timetable app???
 Most timetable apps on the App Store are quite old, and while people don't necessarily need new timetable software, the benefits of native SwiftUI apps can easily make a coherent and fast experience for new students needing timetable software. This was a fun project, that I personally have sideloaded on my device and actively use.
 
+## Tools & Stacks used
+- Xcode IDE
+- SwiftUI
+
 ## Building
 > [!NOTE]
 > Timetablr is not currently on the App Store. Standard sideloading only lasts 7 days before being reloaded.
