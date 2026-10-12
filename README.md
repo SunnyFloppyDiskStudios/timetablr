@@ -80,4 +80,4 @@ mv {PATH TO TIMETABLR PROJECT ROOT}/timetablr/Builds/unsigned.xcarchive/Products
 ___
 { 2026 } [sunnyflops.net](https://sunnyflops.net)
 
-_This application was also submitted towards the NCEA level 2 AS91893 AS91896 and AS91897 internal standards. As a result, all work is my own, and no generative AI was used in the creation of this project._
+_This application was also submitted towards the NCEA level 2 iAS91893, iAS91896, iAS91897, eAS91899 standards. As a result, all work is my own, and no generative AI was used in the creation of this project._
